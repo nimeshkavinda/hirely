@@ -1,5 +1,6 @@
 .footerWrapper {
   background-color: #000;
+  margin-top: 80px;
 }
 
 .footer {
@@ -11,18 +12,19 @@
 
 .eclipse {
   position: absolute;
-  margin-top: 150px;
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
-  height: 100%;
+  height: 240px;
   width: 100%;
-  border-radius: 50%;
+  margin-top: 150px;
+  border-radius: 50% 50% 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .footerHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 46px 0 100px 0;
+  margin: 46px 0 120px 0;
+  z-index: 99;
   > h1 {
     color: #fff;
     font-size: 48px;
