@@ -1,10 +1,9 @@
-import React from "react";
-import { Button } from "antd";
+import { Outlet } from "react-router-dom";
 import "./App.less";
 
 const App = () => (
   <div className="App">
-    <Button type="primary">Button</Button>
+    <Outlet />
   </div>
 );
 
