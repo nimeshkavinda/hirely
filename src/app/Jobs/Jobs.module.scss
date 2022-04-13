@@ -54,6 +54,86 @@
   width: 50%;
 }
 .searchSelect {
-  width: 320px;
-  margin: 0 28px;
+  width: 30%;
+  margin: 0 16px;
+  padding: 0 28px;
+  border-left: 1px solid #c5c5c5;
+}
+
+.body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.bodyLeft {
+  width: 25%;
+  margin-right: 24px;
+}
+
+.bodyRight {
+  width: 73%;
+}
+
+.filterWrapper {
+  //   background-color: #f6f9ff;
+  border-radius: 6px;
+  padding: 12px 16px;
+  > div {
+    display: flex;
+    flex-direction: column;
+    > div:first-child {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 16px 0;
+      color: #808080;
+    }
+  }
+}
+
+.checkRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  > span {
+    color: #808080;
+  }
+}
+
+.filterHeading {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.bodyTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  > div:first-child {
+    margin: 8px 0;
+    > span:first-child {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    > span:last-child {
+      font-size: 18px;
+      color: #808080;
+      font-weight: 400;
+      margin: 0 12px;
+    }
+  }
+  > div:last-child {
+    > span {
+      font-size: 12px;
+      font-weight: 600;
+      color: #808080;
+    }
+  }
+}
+
+.jobCardWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
 }
