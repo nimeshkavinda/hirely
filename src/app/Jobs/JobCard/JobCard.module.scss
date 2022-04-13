@@ -1,0 +1,93 @@
+.jobCard {
+  border-radius: 8px;
+  padding: 24px;
+  //   border: 1px solid #f5f6fb;
+  //   box-shadow: 0px 4px 16px 14px rgba(63, 99, 226, 0.03);
+  background-color: #f6f9ff;
+  height: 380px;
+  width: 280px;
+  flex-basis: 100%;
+  flex: 1 25%;
+  margin: 8px;
+}
+
+.companyLogo {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.firstRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  > span {
+    color: #808080;
+    font-size: 12px;
+    font-weight: 600;
+  }
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0;
+  > div:first-child {
+    > div:first-child {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    > div:last-child {
+      font-size: 14px;
+      font-weight: 400;
+      color: #808080;
+    }
+  }
+  > div:last-child {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3f63e2;
+  }
+}
+
+.tagRow {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  text-transform: capitalize;
+}
+
+.location {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 400;
+  color: #808080;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.salary {
+  font-size: 12px;
+  font-weight: 600;
+  margin: 6px 0;
+  color: #3f63e2;
+}
+
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 0 0;
+  > button {
+    width: 49%;
+    height: 40px;
+  }
+}
