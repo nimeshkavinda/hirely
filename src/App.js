@@ -1,10 +1,6 @@
 import { Outlet } from "react-router-dom";
 import "./App.less";
 
-const App = () => (
-  <div className="App">
-    <Outlet />
-  </div>
-);
+const App = () => <Outlet />;
 
 export default App;
