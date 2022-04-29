@@ -10,3 +10,13 @@
   font-size: 26px;
   line-height: 28px;
 }
+
+.formWrapper {
+  margin: 40px 25%;
+}
+
+.buttonWrapper {
+  button:first-child {
+    margin-right: 8px;
+  }
+}
