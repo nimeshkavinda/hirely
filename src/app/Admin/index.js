@@ -6,8 +6,23 @@ import { Tabs } from "antd";
 import Dashboard from "./Dashboard/Dashboard";
 import Jobs from "./Jobs/Jobs";
 import Candidates from "./Candidates/Candidates";
+import { useState } from "react";
 
 const Admin = () => {
+  const [activeTab, setActiveTab] = useState("1");
+
+  const showJobsTab = () => {
+    setActiveTab("2");
+  };
+
+  const showCandidatesTab = () => {
+    setActiveTab("3");
+  };
+
+  const changeTab = (key) => {
+    setActiveTab(key.toString());
+  };
+
   const { TabPane } = Tabs;
   return (
     <>
@@ -16,9 +31,16 @@ const Admin = () => {
       </div>
       <CompanyHeader />
       <div className={classNames.wrapper}>
-        <Tabs defaultActiveKey="1">
+        <Tabs
+          defaultActiveKey={activeTab}
+          activeKey={activeTab}
+          onChange={changeTab}
+        >
           <TabPane tab="Dashboard" key="1">
-            <Dashboard />
+            <Dashboard
+              showJobs={showJobsTab}
+              showCandidates={showCandidatesTab}
+            />
           </TabPane>
           <TabPane tab="Jobs" key="2">
             <Jobs />
