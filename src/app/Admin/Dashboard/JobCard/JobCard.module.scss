@@ -1,0 +1,81 @@
+.jobCard {
+  border-radius: 8px;
+  padding: 24px;
+  margin: 8px;
+  background-color: #f6f9ff;
+  //   height: 240px;
+  max-width: 32%;
+  flex-basis: 100%;
+  flex: 1 30%;
+}
+
+.companyLogo {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 8px 0;
+  > div:last-child {
+    margin-left: 18px;
+    > div:first-child {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 6px 0;
+    }
+  }
+}
+
+.tagRow {
+  display: flex;
+  align-items: center;
+  margin: 0 8px 8px 0;
+  text-transform: capitalize;
+}
+
+.location {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.salary {
+  //   font-size: 12px;
+  //   font-weight: 600;
+  //   margin: 6px 0;
+  //   color: #3f63e2;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 400;
+  color: #808080;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 0 0;
+  > button {
+    width: 49%;
+    height: 40px;
+  }
+}
+
+.details {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px 0;
+}

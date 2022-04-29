@@ -25,7 +25,9 @@ const Dashboard = ({ showJobs, showCandidates }) => {
               </Button>
             </div>
           </div>
-          <div>
+          <div className={classNames.jobCardWrapper}>
+            <JobCard />
+            <JobCard />
             <JobCard />
             <JobCard />
             <JobCard />
@@ -40,7 +42,14 @@ const Dashboard = ({ showJobs, showCandidates }) => {
               </Button>
             </div>
           </div>
-          <div></div>
+          <div className={classNames.jobCardWrapper}>
+            <JobCard />
+            <JobCard />
+            <JobCard />
+            <JobCard />
+            <JobCard />
+            <JobCard />
+          </div>
         </div>
         <div className={classNames.topic}>
           <div>
