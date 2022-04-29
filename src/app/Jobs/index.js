@@ -1,9 +1,9 @@
 import classNames from "./Jobs.module.scss";
 import { Button, Input, Select, Tag, Checkbox, Slider } from "antd";
-import { BsPlus } from "react-icons/bs";
 import { RiSearchLine } from "react-icons/ri";
 import Footer from "../../components/Footer/Footer";
 import JobCard from "./JobCard/JobCard";
+import Header from "../../components/Header/Header";
 
 const Jobs = () => {
   const options = [
@@ -33,16 +33,7 @@ const Jobs = () => {
   return (
     <>
       <div className={classNames.wrapper}>
-        <div className={classNames.header}>
-          <div className={classNames.logo}>Hirely.</div>
-          <div className={classNames.buttonWrapper}>
-            <Button type="link" className={classNames.linkButton}>
-              <BsPlus /> Post a job
-            </Button>
-            <Button type="primary">Candidate login</Button>
-            <Button>Employer login</Button>
-          </div>
-        </div>
+        <Header />
         <div className={classNames.search}>
           <Input
             placeholder="Job title or keyword"

@@ -4,35 +4,6 @@
   margin: 5px 5%;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px auto;
-  width: 100%;
-  height: 50px;
-}
-
-.logo {
-  font-size: 26px;
-  font-weight: 600;
-  letter-spacing: -2px;
-}
-
-.buttonWrapper {
-  display: flex;
-  align-items: center;
-  > button {
-    margin: 0 5px;
-  }
-}
-
-.linkButton {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
 .search {
   box-shadow: 0px 4px 24px 13px rgba(63, 99, 226, 0.03);
   width: 100%;
