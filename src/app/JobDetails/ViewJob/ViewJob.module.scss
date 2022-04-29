@@ -1,0 +1,92 @@
+.wrapper {
+  margin: 0;
+}
+
+.jobWrapper {
+  border-top: 1px solid #d7d7d7;
+  padding: 40px 0;
+}
+
+.header {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px 0;
+  > div:not(:first-child):not(:last-child) {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 28px;
+    margin: 16px 0;
+  }
+  > div:last-child {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 22px;
+    color: #808080;
+  }
+}
+
+.companyLogo {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #808080;
+    font-size: 16px;
+    font-weight: 400;
+    > svg {
+      margin: 0 6px 0 0;
+    }
+  }
+}
+
+.salary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 22px;
+  margin: 20px 0;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.footer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  > div:first-child {
+    font-size: 16px;
+    font-weight: 400;
+    color: #808080;
+  }
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -2px;
+}
