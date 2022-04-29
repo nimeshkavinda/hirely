@@ -1,0 +1,38 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.searchInput {
+  width: 55%;
+}
+
+.searchSelect {
+  width: 28%;
+}
+
+.searchButton {
+  width: 15%;
+  height: 40px;
+}
+
+.resultCount {
+  margin: 15px 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  padding: 0 0 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tableWrapper {
+  margin: 15px 0 0 0;
+}
