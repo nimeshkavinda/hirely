@@ -1,7 +1,18 @@
 import classNames from "./CreateJob.module.scss";
+import Header from "../../../components/Header/Header";
+import Footer from "../../../components/Footer/Footer";
 
 const CreateJob = () => {
-  return <div>CreateJob</div>;
+  return (
+    <>
+      <div className={classNames.wrapper}>
+        <Header />
+      </div>
+      <div className={classNames.heading}>Create job</div>
+      <div className={classNames.wrapper}></div>
+      <Footer />
+    </>
+  );
 };
 
 export default CreateJob;

@@ -15,7 +15,7 @@ function AppRoutes() {
           <Route path="" element={<Jobs />}></Route>
         </Route>
         <Route path="/job" element={<JobDetails />}>
-          <Route path="/create" element={<CreateJob />} />
+          <Route path="create" element={<CreateJob />} />
           <Route path=":id" element={<ViewJob />} />
           <Route path=":id/edit" element={<EditJob />} />
         </Route>
