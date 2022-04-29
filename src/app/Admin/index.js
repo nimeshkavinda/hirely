@@ -4,6 +4,8 @@ import Footer from "../../components/Footer/Footer";
 import CompanyHeader from "./Header/Header";
 import { Tabs } from "antd";
 import Dashboard from "./Dashboard/Dashboard";
+import Jobs from "./Jobs/Jobs";
+import Candidates from "./Candidates/Candidates";
 
 const Admin = () => {
   const { TabPane } = Tabs;
@@ -19,10 +21,10 @@ const Admin = () => {
             <Dashboard />
           </TabPane>
           <TabPane tab="Jobs" key="2">
-            Content of Tab Pane 2
+            <Jobs />
           </TabPane>
           <TabPane tab="Candidates" key="3">
-            Content of Tab Pane 3
+            <Candidates />
           </TabPane>
         </Tabs>
       </div>
