@@ -1,10 +1,10 @@
 import classNames from "./JobDetails.module.scss";
-import ViewJob from "./ViewJob/ViewJob";
+import { Outlet } from "react-router-dom";
 
 const JobDetails = () => {
   return (
     <div className={classNames.wrapper}>
-      <ViewJob />
+      <Outlet />
     </div>
   );
 };

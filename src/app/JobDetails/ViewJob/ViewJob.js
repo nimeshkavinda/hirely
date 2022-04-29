@@ -3,7 +3,7 @@ import { Image, Button } from "antd";
 import { BsDot } from "react-icons/bs";
 import { FaBriefcase, FaGlobeAmericas } from "react-icons/fa";
 import { HiOfficeBuilding } from "react-icons/hi";
-import Header from "../../../components/Header/Header";
+// import Header from "../../../components/Header/Header";
 
 const ViewJob = () => {
   return (
