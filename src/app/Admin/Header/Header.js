@@ -1,5 +1,6 @@
 import classNames from "./Header.module.scss";
 import { Avatar, Image, Button } from "antd";
+import { BsPlus } from "react-icons/bs";
 
 const Header = () => {
   return (
@@ -19,6 +20,9 @@ const Header = () => {
             <div>Apple Inc.</div>
           </div>
           <div>
+            <Button type="link" className={classNames.linkButton}>
+              <BsPlus /> Post a job
+            </Button>
             <Button type="primary">Edit Company Profile</Button>
           </div>
         </div>
