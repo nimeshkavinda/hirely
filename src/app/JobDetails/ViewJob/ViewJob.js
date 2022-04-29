@@ -8,7 +8,7 @@ import Header from "../../../components/Header/Header";
 const ViewJob = () => {
   return (
     <div className={classNames.wrapper}>
-      <Header />
+      {/* <Header /> */}
       <div className={classNames.jobWrapper}>
         <div className={classNames.header}>
           <Image
