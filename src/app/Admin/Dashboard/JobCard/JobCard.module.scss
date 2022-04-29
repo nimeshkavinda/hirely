@@ -21,10 +21,21 @@
   margin: 8px 0;
   > div:last-child {
     margin-left: 18px;
+    width: 100%;
     > div:first-child {
-      font-size: 18px;
-      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin: 0 0 6px 0;
+      > div:first-child {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      > div:last-child {
+        font-size: 12px;
+        font-weight: 600;
+        color: #3f63e2;
+      }
     }
   }
 }

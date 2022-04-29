@@ -1,6 +1,7 @@
 import classNames from "./Dashboard.module.scss";
 import { Button } from "antd";
 import JobCard from "./JobCard/JobCard";
+import CandidateCard from "./CandidateCard/CandidateCard";
 
 const Dashboard = ({ showJobs, showCandidates }) => {
   return (
@@ -35,6 +36,24 @@ const Dashboard = ({ showJobs, showCandidates }) => {
         </div>
         <div className={classNames.topic}>
           <div>
+            <div>Latest applicants</div>
+            <div>
+              <Button type="link" onClick={showCandidates}>
+                See all
+              </Button>
+            </div>
+          </div>
+          <div className={classNames.candidateCardWrapper}>
+            <CandidateCard />
+            <CandidateCard />
+            <CandidateCard />
+            <CandidateCard />
+            <CandidateCard />
+            <CandidateCard />
+          </div>
+        </div>
+        <div className={classNames.topic}>
+          <div>
             <div>Latest job openings</div>
             <div>
               <Button type="link" onClick={showJobs}>
@@ -50,17 +69,6 @@ const Dashboard = ({ showJobs, showCandidates }) => {
             <JobCard />
             <JobCard />
           </div>
-        </div>
-        <div className={classNames.topic}>
-          <div>
-            <div>Latest applicants</div>
-            <div>
-              <Button type="link" onClick={showCandidates}>
-                See all
-              </Button>
-            </div>
-          </div>
-          <div></div>
         </div>
       </div>
     </div>

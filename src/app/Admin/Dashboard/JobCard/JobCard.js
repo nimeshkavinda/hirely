@@ -14,7 +14,10 @@ const JobCard = () => {
           className={classNames.companyLogo}
         />
         <div>
-          <div>UX Designer</div>
+          <div>
+            <div>UX Designer</div>
+            <div>13 applicants</div>
+          </div>
           <div className={classNames.tagRow}>
             <Tag color="magenta">full-time</Tag>
             <Tag color="red">in-office</Tag>
