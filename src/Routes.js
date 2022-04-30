@@ -9,6 +9,8 @@ import CreateJob from "./app/JobDetails/CreateJob/CreateJob";
 import Login from "./app/Auth/Candidate/Login/Login";
 import Register from "./app/Auth/Candidate/Register/Register";
 import CompleteProfile from "./app/Auth/Candidate/CompleteProfile/CompleteProfile";
+import AdminLogin from "./app/Auth/Employer/Login/Login";
+import CreateAccount from "./app/Auth/Employer/CreateAccount/CreateAccount";
 
 function AppRoutes() {
   return (
@@ -19,6 +21,8 @@ function AppRoutes() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="complete-profile" element={<CompleteProfile />} />
+          <Route path="admin-login" element={<AdminLogin />} />
+          <Route path="register-company" element={<CreateAccount />} />
         </Route>
         <Route path="/job" element={<JobDetails />}>
           <Route path="create" element={<CreateJob />} />
