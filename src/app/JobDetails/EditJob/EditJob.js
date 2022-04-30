@@ -2,7 +2,6 @@ import classNames from "./EditJob.module.scss";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
 import { Form, Input, Button, Select, Checkbox } from "antd";
-import { BsPlus } from "react-icons/bs";
 
 const EditJob = () => {
   return (
