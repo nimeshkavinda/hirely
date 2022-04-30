@@ -7,6 +7,7 @@ import EditJob from "./app/JobDetails/EditJob/EditJob";
 import ViewJob from "./app/JobDetails/ViewJob/ViewJob";
 import CreateJob from "./app/JobDetails/CreateJob/CreateJob";
 import Login from "./app/Auth/Candidate/Login/Login";
+import Register from "./app/Auth/Candidate/Register/Register";
 
 function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ function AppRoutes() {
         <Route path="/" element={<App />}>
           <Route path="" element={<Jobs />} />
           <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
         <Route path="/job" element={<JobDetails />}>
           <Route path="create" element={<CreateJob />} />
