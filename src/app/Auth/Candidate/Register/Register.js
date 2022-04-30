@@ -4,7 +4,7 @@ import { Card, Form, Input, Button, Select } from "antd";
 const Register = () => {
   return (
     <div className={classNames.wrapper}>
-      <div className={classNames.loginWrapper}>
+      <div className={classNames.authWrapper}>
         <div className={classNames.header}>
           <div>Let's get you started in</div>
           <div className={classNames.logo}>Hirely.</div>

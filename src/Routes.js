@@ -8,6 +8,7 @@ import ViewJob from "./app/JobDetails/ViewJob/ViewJob";
 import CreateJob from "./app/JobDetails/CreateJob/CreateJob";
 import Login from "./app/Auth/Candidate/Login/Login";
 import Register from "./app/Auth/Candidate/Register/Register";
+import CompleteProfile from "./app/Auth/Candidate/CompleteProfile/CompleteProfile";
 
 function AppRoutes() {
   return (
@@ -17,6 +18,7 @@ function AppRoutes() {
           <Route path="" element={<Jobs />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="complete-profile" element={<CompleteProfile />} />
         </Route>
         <Route path="/job" element={<JobDetails />}>
           <Route path="create" element={<CreateJob />} />

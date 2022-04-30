@@ -4,7 +4,7 @@ import { Card, Form, Input, Button } from "antd";
 const Login = () => {
   return (
     <div className={classNames.wrapper}>
-      <div className={classNames.loginWrapper}>
+      <div className={classNames.authWrapper}>
         <div className={classNames.header}>
           <div>Welcome back to</div>
           <div className={classNames.logo}>Hirely.</div>
