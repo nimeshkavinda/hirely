@@ -1,5 +1,11 @@
 import { generateActionTypes } from "./utils";
 
-const types = {};
+const types = {
+  employer: {
+    signUp: {
+      ...generateActionTypes("employer.signUp"),
+    },
+  },
+};
 
 export default types;
