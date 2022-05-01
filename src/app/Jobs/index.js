@@ -1,35 +1,11 @@
 import classNames from "./Jobs.module.scss";
-import { Button, Input, Select, Tag, Checkbox, Slider } from "antd";
+import { Button, Input, Select, Checkbox, Slider } from "antd";
 import { RiSearchLine } from "react-icons/ri";
 import Footer from "../../components/Footer/Footer";
 import JobCard from "./JobCard/JobCard";
 import Header from "../../components/Header/Header";
 
 const Jobs = () => {
-  const options = [
-    { value: "gold" },
-    { value: "lime" },
-    { value: "green" },
-    { value: "cyan" },
-  ];
-  function tagRender(props) {
-    const { label, value, closable, onClose } = props;
-    const onPreventMouseDown = (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-    };
-    return (
-      <Tag
-        color={value}
-        onMouseDown={onPreventMouseDown}
-        closable={closable}
-        onClose={onClose}
-        style={{ marginRight: 3 }}
-      >
-        {label}
-      </Tag>
-    );
-  }
   return (
     <>
       <div className={classNames.wrapper}>
