@@ -1,6 +1,6 @@
 import classNames from "./CandidateHeader.module.scss";
 import { Avatar, Image, Button } from "antd";
-import { BsPlus } from "react-icons/bs";
+import { AiFillMail, AiFillPhone } from "react-icons/ai";
 
 const CandidateHeader = () => {
   return (
@@ -19,11 +19,19 @@ const CandidateHeader = () => {
             />
             <div>Nimesh Kavinda</div>
           </div>
-          <div>
-            <Button type="link" className={classNames.linkButton}>
-              <BsPlus /> Post a job
-            </Button>
-            <Button type="primary">Edit Company Profile</Button>
+          <div className={classNames.contact}>
+            <div>
+              <AiFillPhone size={16} />
+              <Button type="link" className={classNames.linkButton}>
+                +94 71 695 6139
+              </Button>
+            </div>
+            <div>
+              <AiFillMail size={16} />
+              <Button type="link" className={classNames.linkButton}>
+                nimeshkavinda13@gmail.com
+              </Button>
+            </div>
           </div>
         </div>
       </div>

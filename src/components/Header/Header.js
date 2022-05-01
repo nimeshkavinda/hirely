@@ -6,7 +6,9 @@ const Header = () => {
   const navigation = useNavigate();
   return (
     <div className={classNames.header}>
-      <div className={classNames.logo}>Hirely.</div>
+      <div className={classNames.logo} onClick={() => navigation("/")}>
+        Hirely.
+      </div>
       <div className={classNames.buttonWrapper}>
         <Button type="primary" onClick={() => navigation("/login")}>
           Candidate login

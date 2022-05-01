@@ -34,7 +34,15 @@
 }
 
 .linkButton {
+  margin: 0;
+  padding: 0 6px;
+}
+
+.contact {
   display: flex;
-  align-items: center;
   justify-content: flex-start;
+  align-items: center;
+  > div:first-child {
+    margin-right: 15px;
+  }
 }
