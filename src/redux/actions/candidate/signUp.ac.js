@@ -1,6 +1,6 @@
 import types from "../../types";
 import { generateSyncAction } from "../../utils";
-import { auth } from "../../../../firebase.config";
+import { auth } from "../../../firebase.config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export const signUp = (email, password) => async (dispatch) => {

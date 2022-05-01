@@ -2,9 +2,38 @@ import classNames from "./CreateAccount.module.scss";
 import { Card, Form, Input, Button, Upload } from "antd";
 import { GrAdd } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import ac from "../../../../redux/actions";
+import { useEffect } from "react";
 
 const CreateAccount = () => {
   const navigation = useNavigate();
+  const dispatch = useDispatch();
+
+  const empSignUp = useSelector(({ signUp }) => signUp);
+
+  const fetching = useSelector(({ empSignUp: { fetching } }) => {
+    return fetching;
+  });
+
+  const onSubmit = (data) => {
+    console.log("Sign up data: ", data);
+    dispatch(ac.empSignUp(data.email, data.password));
+  };
+
+  useEffect(
+    function () {
+      if (empSignUp.data) {
+        console.log("Signup success data: ", empSignUp.data);
+        // navigation("/");
+      }
+      if (empSignUp.error) {
+        console.log("fail");
+      }
+    },
+    [empSignUp, dispatch, navigation]
+  );
+
   return (
     <div className={classNames.wrapper}>
       <div className={classNames.authWrapper}>
