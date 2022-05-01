@@ -1,7 +1,9 @@
 import classNames from "./Register.module.scss";
 import { Card, Form, Input, Button, Select } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigation = useNavigate();
   return (
     <div className={classNames.wrapper}>
       <div className={classNames.authWrapper}>
@@ -40,10 +42,6 @@ const Register = () => {
               <Input />
             </Form.Item>
 
-            <Form.Item label="Email address">
-              <Input />
-            </Form.Item>
-
             <Form.Item label="Mobile number">
               <Input.Group compact>
                 <Select defaultValue="+94" style={{ width: "20%" }}>
@@ -70,7 +68,10 @@ const Register = () => {
         </Card>
         <div className={classNames.footer}>
           <div className={classNames.link}>
-            Already have an account? <Button type="link">Login here</Button>
+            Already have an account?{" "}
+            <Button type="link" onClick={() => navigation("/login")}>
+              Login here
+            </Button>
           </div>
         </div>
       </div>

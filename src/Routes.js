@@ -11,6 +11,7 @@ import Register from "./app/Auth/Candidate/Register/Register";
 import CompleteProfile from "./app/Auth/Candidate/CompleteProfile/CompleteProfile";
 import AdminLogin from "./app/Auth/Employer/Login/Login";
 import CreateAccount from "./app/Auth/Employer/CreateAccount/CreateAccount";
+import Candidate from "./app/Candidate";
 
 function AppRoutes() {
   return (
@@ -29,6 +30,7 @@ function AppRoutes() {
           <Route path=":id" element={<ViewJob />} />
           <Route path=":id/edit" element={<EditJob />} />
         </Route>
+        <Route path="/candidate" element={<Candidate />}></Route>
         <Route path="app" element={<Admin />}></Route>
       </Routes>
     </Router>

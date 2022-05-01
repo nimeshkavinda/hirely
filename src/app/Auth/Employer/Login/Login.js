@@ -1,7 +1,9 @@
 import classNames from "./Login.module.scss";
 import { Card, Form, Input, Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigation = useNavigate();
   return (
     <div className={classNames.wrapper}>
       <div className={classNames.authWrapper}>
@@ -46,7 +48,10 @@ const Login = () => {
         </Card>
         <div className={classNames.footer}>
           <div className={classNames.link}>
-            Don't have an account? <Button type="link">Register here</Button>
+            Don't have an account?{" "}
+            <Button type="link" onClick={() => navigation("/register-company")}>
+              Register here
+            </Button>
           </div>
         </div>
       </div>

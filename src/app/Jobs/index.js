@@ -70,18 +70,6 @@ const Jobs = () => {
             <div className={classNames.filterWrapper}>
               <div className={classNames.filterHeading}>Filters</div>
               <div>
-                <div>Skills</div>
-                <Select
-                  mode="multiple"
-                  showArrow
-                  tagRender={tagRender}
-                  defaultValue={["gold", "cyan"]}
-                  style={{ width: "100%" }}
-                  options={options}
-                  size="large"
-                />
-              </div>
-              <div>
                 <div>Job type</div>
                 <div className={classNames.checkRow}>
                   <Checkbox>Full-time</Checkbox>

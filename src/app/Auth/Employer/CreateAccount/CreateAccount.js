@@ -1,8 +1,10 @@
 import classNames from "./CreateAccount.module.scss";
 import { Card, Form, Input, Button, Upload } from "antd";
 import { GrAdd } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
+  const navigation = useNavigate();
   return (
     <div className={classNames.wrapper}>
       <div className={classNames.authWrapper}>
@@ -77,7 +79,10 @@ const CreateAccount = () => {
         </Card>
         <div className={classNames.footer}>
           <div className={classNames.link}>
-            Already have an account? <Button type="link">Login here</Button>
+            Already have an account?{" "}
+            <Button type="link" onClick={() => navigation("/admin-login")}>
+              Login here
+            </Button>
           </div>
         </div>
       </div>
