@@ -5,13 +5,13 @@ export const empSignIn = (
   action
 ) => {
   switch (action.type) {
-    case types.employer.signIn.started:
+    case types.employer.empSignIn.started:
       return Object.assign({}, { fetching: true });
 
-    case types.employer.signIn.success:
+    case types.employer.empSignIn.success:
       return Object.assign({}, { fetching: false, data: { ...action.data } });
 
-    case types.employer.signIn.failed:
+    case types.employer.empSignIn.failed:
       return Object.assign({}, { fetching: false, error: { ...action.data } });
 
     default:

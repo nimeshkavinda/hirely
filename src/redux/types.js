@@ -2,8 +2,11 @@ import { generateActionTypes } from "./utils";
 
 const types = {
   employer: {
-    signUp: {
+    empSignUp: {
       ...generateActionTypes("employer.signUp"),
+    },
+    empSignIn: {
+      ...generateActionTypes("employer.signIn"),
     },
   },
 };
