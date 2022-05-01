@@ -9,6 +9,14 @@ const types = {
       ...generateActionTypes("employer.signIn"),
     },
   },
+  candidate: {
+    signUp: {
+      ...generateActionTypes("candidate.signUp"),
+    },
+    signIn: {
+      ...generateActionTypes("candidate.signIn"),
+    },
+  },
 };
 
 export default types;
