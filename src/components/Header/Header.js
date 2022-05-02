@@ -130,7 +130,12 @@ const Header = () => {
   };
   return (
     <div className={classNames.header}>
-      <div className={classNames.logo} onClick={() => navigation("/")}>
+      <div
+        className={classNames.logo}
+        onClick={() => {
+          userType === "employer" ? navigation("/app") : navigation("/");
+        }}
+      >
         Hirely.
       </div>
       <UserOptions />

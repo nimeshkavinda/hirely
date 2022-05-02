@@ -6,11 +6,18 @@ import { Tabs } from "antd";
 import Dashboard from "./Dashboard/Dashboard";
 import Jobs from "./Jobs/Jobs";
 import Candidates from "./Candidates/Candidates";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ac from "../../redux/actions";
 
 const Admin = () => {
+  const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("1");
+
+  useEffect(() => {
+    dispatch(ac.getJobs());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const employerData = useSelector(({ getEmployerByUid }) =>
     getEmployerByUid.data ? getEmployerByUid.data[0] : {}

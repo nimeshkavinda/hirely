@@ -48,8 +48,8 @@ const CreateAccount = () => {
           ac.createEmpAcc({
             ...empAccount,
             uid: empSignUp.data.uid,
-            jobs: {},
-            candidates: {},
+            jobs: [],
+            candidates: [],
           })
         );
         // message.success("Company account has been created. Please login ");

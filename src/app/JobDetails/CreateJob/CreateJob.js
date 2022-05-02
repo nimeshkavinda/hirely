@@ -30,7 +30,7 @@ const CreateJob = () => {
           companyName: employerData?.companyName,
           companyLogo: employerData?.companyLogo,
         },
-        candidates: {},
+        candidates: [],
       })
     );
   };
@@ -48,7 +48,7 @@ const CreateJob = () => {
     if (createJob.error) {
       message.error("Failed to create job");
     }
-  }, [createJob]);
+  }, [createJob, employerData, dispatch]);
 
   return (
     <>

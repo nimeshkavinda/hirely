@@ -1,37 +1,57 @@
 import classNames from "./Jobs.module.scss";
 import { Input, Select, Button, Table } from "antd";
 import { RiSearchLine } from "react-icons/ri";
+import { useState, useEffect } from "react";
+import ac from "../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const Jobs = () => {
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
+  const dispatch = useDispatch();
+  const [jobs, setJobs] = useState();
+
+  useEffect(() => {
+    dispatch(ac.getJobs());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Job type",
+      dataIndex: "jobType",
+      key: "jobType",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Industry",
+      dataIndex: "industry",
+      key: "industry",
+    },
+    {
+      title: "Location",
+      dataIndex: "location",
+      key: "location",
+    },
+    {
+      title: "Modality",
+      dataIndex: "modality",
+      key: "modality",
+    },
+    {
+      title: "Salary",
+      dataIndex: "salary",
+      key: "salary",
+    },
+    {
+      title: "Candidates",
+      dataIndex: "candidates",
+      key: "candidates",
+      render: (candidates) => {
+        return <span>{candidates} applicants</span>;
+      },
     },
   ];
   return (
@@ -67,7 +87,7 @@ const Jobs = () => {
       <div className={classNames.resultCount}>200 Jobs found</div>
       <div className={classNames.tableWrapper}>
         <Table
-          dataSource={dataSource}
+          dataSource={jobs}
           columns={columns}
           pagination={{ position: ["none", "bottomCenter"] }}
         />

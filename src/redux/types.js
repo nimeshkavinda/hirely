@@ -14,6 +14,9 @@ const types = {
     getEmployerByUid: {
       ...generateActionTypes("employer.getEmployerByUid"),
     },
+    updateEmployer: {
+      ...generateActionTypes("employer.updateEmployer"),
+    },
   },
   candidate: {
     signUp: {
@@ -26,6 +29,9 @@ const types = {
   job: {
     createJob: {
       ...generateActionTypes("job.createJob"),
+    },
+    getJobs: {
+      ...generateActionTypes("job.getJobs"),
     },
   },
 };
