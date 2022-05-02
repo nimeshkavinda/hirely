@@ -6,7 +6,7 @@ import {
   updateEmployer,
 } from "./employer";
 import { signUp, signIn } from "./candidate";
-import { createJob, getJobs } from "./job";
+import { createJob, getJobs, getJobById } from "./job";
 
 const actions = {
   empSignUp,
@@ -18,6 +18,7 @@ const actions = {
   signIn,
   createJob,
   getJobs,
+  getJobById,
 };
 
 export default actions;
