@@ -20,17 +20,39 @@ const Login = () => {
     return fetching;
   });
 
+  const getEmployerByUid = useSelector(
+    ({ getEmployerByUid }) => getEmployerByUid
+  );
+
+  const getEmployerByUidFetching = useSelector(
+    ({ getEmployerByUid: { fetching } }) => {
+      return fetching;
+    }
+  );
+
   useEffect(
     function () {
       if (empSignIn.data) {
-        message.success("Login success");
-        // navigation("/app");
+        dispatch(ac.getEmployerByUid(empSignIn.data.uid));
       }
       if (empSignIn.error) {
         message.error(empSignIn.error.code);
       }
     },
     [empSignIn, dispatch, navigation]
+  );
+
+  useEffect(
+    function () {
+      if (getEmployerByUid.data) {
+        message.success("Employer login success");
+        // navigation("/app");
+      }
+      if (getEmployerByUid.error) {
+        message.error("Failed to login as employer");
+      }
+    },
+    [getEmployerByUid, navigation]
   );
 
   return (
@@ -73,7 +95,7 @@ const Login = () => {
                 type="primary"
                 htmlType="submit"
                 className={classNames.ctaButton}
-                loading={empSignInFetching}
+                loading={empSignInFetching || getEmployerByUidFetching}
               >
                 Login
               </Button>
