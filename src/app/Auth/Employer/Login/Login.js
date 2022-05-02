@@ -45,8 +45,10 @@ const Login = () => {
   useEffect(
     function () {
       if (getEmployerByUid.data) {
+        localStorage.setItem("uid", empSignIn.data.uid);
+        localStorage.setItem("accessToken", empSignIn.data.accessToken);
+        navigation("/app");
         message.success("Employer login success");
-        // navigation("/app");
       }
       if (getEmployerByUid.error) {
         message.error("Failed to login as employer");
