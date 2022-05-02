@@ -2,7 +2,7 @@ import classNames from "./Admin.module.scss";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import CompanyHeader from "./Header/Header";
-import { Tabs } from "antd";
+import { Spin, Tabs } from "antd";
 import Dashboard from "./Dashboard/Dashboard";
 import Jobs from "./Jobs/Jobs";
 import Candidates from "./Candidates/Candidates";
@@ -67,26 +67,29 @@ const Admin = () => {
         <Header />
       </div>
       <CompanyHeader employer={employerData} />
-      <div className={classNames.wrapper}>
-        <Tabs
-          defaultActiveKey={activeTab}
-          activeKey={activeTab}
-          onChange={changeTab}
-        >
-          <TabPane tab="Dashboard" key="1">
-            <Dashboard
-              showJobs={showJobsTab}
-              showCandidates={showCandidatesTab}
-            />
-          </TabPane>
-          <TabPane tab="Jobs" key="2">
-            <Jobs jobs={companyJobs} />
-          </TabPane>
-          <TabPane tab="Candidates" key="3">
-            <Candidates />
-          </TabPane>
-        </Tabs>
-      </div>
+      <Spin size="large" spinning={getJobsFetching}>
+        <div className={classNames.wrapper}>
+          <Tabs
+            defaultActiveKey={activeTab}
+            activeKey={activeTab}
+            onChange={changeTab}
+          >
+            <TabPane tab="Dashboard" key="1">
+              <Dashboard
+                jobs={companyJobs}
+                showJobs={showJobsTab}
+                showCandidates={showCandidatesTab}
+              />
+            </TabPane>
+            <TabPane tab="Jobs" key="2">
+              <Jobs jobs={companyJobs} />
+            </TabPane>
+            <TabPane tab="Candidates" key="3">
+              <Candidates />
+            </TabPane>
+          </Tabs>
+        </div>
+      </Spin>
       <Footer />
     </>
   );

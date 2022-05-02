@@ -3,13 +3,17 @@ import { Button } from "antd";
 import JobCard from "./JobCard/JobCard";
 import CandidateCard from "./CandidateCard/CandidateCard";
 
-const Dashboard = ({ showJobs, showCandidates }) => {
+const Dashboard = ({ jobs, showJobs, showCandidates }) => {
+  const getPopularJobs = (jobs) => {
+    return jobs.sort((a, b) => b.candidates.length - a.candidates.length);
+  };
+
   return (
     <div className={classNames.wrapper}>
       <div className={classNames.stats}>
         <div className={classNames.statItem}>
           <div>Job openings</div>
-          <div>15</div>
+          <div>{jobs.length}</div>
         </div>
         <div className={classNames.statItem}>
           <div>Candidates applied</div>
@@ -27,11 +31,22 @@ const Dashboard = ({ showJobs, showCandidates }) => {
             </div>
           </div>
           <div className={classNames.jobCardWrapper}>
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
+            {getPopularJobs(jobs)
+              ?.slice(0, 6)
+              .map((job) => (
+                <JobCard
+                  id={job.id}
+                  title={job.title}
+                  noOfApplicants={job.candidates.length}
+                  companyLogo={job.company.companyLogo}
+                  description={job.description}
+                  jobType={job.jobType}
+                  modality={job.isRemote === true ? "Remote" : "In-office"}
+                  salary={job.salary}
+                  industry={job.industry}
+                  location={job.location}
+                />
+              ))}
           </div>
         </div>
         <div className={classNames.topic}>
@@ -62,12 +77,20 @@ const Dashboard = ({ showJobs, showCandidates }) => {
             </div>
           </div>
           <div className={classNames.jobCardWrapper}>
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
+            {jobs?.slice(0, 6).map((job) => (
+              <JobCard
+                id={job.id}
+                title={job.title}
+                noOfApplicants={job.candidates.length}
+                companyLogo={job.company.companyLogo}
+                description={job.description}
+                jobType={job.jobType}
+                modality={job.isRemote === true ? "Remote" : "In-office"}
+                salary={job.salary}
+                industry={job.industry}
+                location={job.location}
+              />
+            ))}
           </div>
         </div>
       </div>
