@@ -23,6 +23,11 @@ const types = {
       ...generateActionTypes("candidate.signIn"),
     },
   },
+  job: {
+    createJob: {
+      ...generateActionTypes("job.createJob"),
+    },
+  },
 };
 
 export default types;

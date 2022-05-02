@@ -5,6 +5,7 @@ import {
   getEmployerByUid,
 } from "./employer";
 import { signUp, signIn } from "./candidate";
+import { createJob } from "./job";
 
 const actions = {
   empSignUp,
@@ -13,6 +14,7 @@ const actions = {
   getEmployerByUid,
   signUp,
   signIn,
+  createJob,
 };
 
 export default actions;
