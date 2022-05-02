@@ -7,10 +7,13 @@ import Header from "../../components/Header/Header";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ac from "../../redux/actions";
+import jobTypes from "../../data/jobTypes.data";
+import locations from "../../data/locations.data";
 
 const Jobs = () => {
   const dispatch = useDispatch();
   const [allJobs, setAllJobs] = useState([]);
+  const [jobTypesCount, setJobsTypesCount] = useState([]);
 
   useEffect(() => {
     dispatch(ac.getJobs());
@@ -33,6 +36,36 @@ const Jobs = () => {
       setAllJobs(jobsArr);
     }
   }, [getJobs, getJobsFetching]);
+
+  const getJobTypeCounts = () => {
+    let fullTime = allJobs
+      .filter((jobs) => jobs.jobType === jobTypes[0].value)
+      .map((jobs) => jobs);
+
+    let partTime = allJobs
+      .filter((jobs) => jobs.jobType === jobTypes[1].value)
+      .map((jobs) => jobs);
+
+    let contract = allJobs
+      .filter((jobs) => jobs.jobType === jobTypes[2].value)
+      .map((jobs) => jobs);
+
+    let internship = allJobs
+      .filter((jobs) => jobs.jobType === jobTypes[3].value)
+      .map((jobs) => jobs);
+
+    setJobsTypesCount({
+      fullTime: { ...fullTime, value: "full-time" },
+      partTime: { ...partTime, value: "part-time" },
+      contract: { ...contract, value: "contract" },
+      internship: { ...internship, value: "internship" },
+    });
+  };
+
+  useEffect(() => {
+    getJobTypeCounts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allJobs]);
 
   return (
     <>
@@ -76,21 +109,15 @@ const Jobs = () => {
                 <div className={classNames.filterHeading}>Filters</div>
                 <div>
                   <div>Job type</div>
-                  <div className={classNames.checkRow}>
-                    <Checkbox>Full-time</Checkbox>
-                    <span>10</span>
-                  </div>
-                  <div className={classNames.checkRow}>
-                    <Checkbox>Part-time</Checkbox>
-                    <span>5</span>
-                  </div>
-                  <div className={classNames.checkRow}>
-                    <Checkbox>Contract</Checkbox>
-                    <span>14</span>
-                  </div>
-                  <div className={classNames.checkRow}>
-                    <Checkbox>Internship</Checkbox>
-                    <span>16</span>
+                  <div>
+                    {Object.keys(jobTypesCount).map((type, index) => (
+                      <div className={classNames.checkRow} key={index}>
+                        <Checkbox>{jobTypesCount[type].value}</Checkbox>
+                        <span>
+                          {Object.keys(jobTypesCount[type]).length - 1}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 <div>
@@ -105,14 +132,14 @@ const Jobs = () => {
                   </div>
                 </div>
                 <div>
-                  <div>Country</div>
-                  <div className={classNames.checkRow}>
-                    <Checkbox>Sri Lanka</Checkbox>
-                    <span>116</span>
-                  </div>
-                  <div className={classNames.checkRow}>
-                    <Checkbox>Singapore</Checkbox>
-                    <span>16</span>
+                  <div>Location</div>
+                  <div>
+                    {locations.slice(0, 10).map((location, index) => (
+                      <div className={classNames.checkRow} key={index}>
+                        <Checkbox>{location}</Checkbox>
+                        <span>10</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 <div>
@@ -125,9 +152,6 @@ const Jobs = () => {
                       },
                     }}
                   />
-                  <Checkbox style={{ marginTop: 16 }}>
-                    Include if no salary specified
-                  </Checkbox>
                 </div>
               </div>
             </div>

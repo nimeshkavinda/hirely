@@ -29,7 +29,7 @@ const JobCard = ({
           className={classNames.companyLogo}
         />
         <div>
-          <div>{`{${created}}`}</div>
+          <div>{`${moment(created).format("MMMM Do, YYYY")}`}</div>
           <div>{noOfApplicants} applicants</div>
         </div>
       </div>
