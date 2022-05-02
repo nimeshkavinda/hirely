@@ -11,6 +11,9 @@ const types = {
     createEmpAcc: {
       ...generateActionTypes("employer.createEmpAcc"),
     },
+    getEmployerByUid: {
+      ...generateActionTypes("employer.getEmployerByUid"),
+    },
   },
   candidate: {
     signUp: {
