@@ -47,6 +47,7 @@ const Login = () => {
       if (getEmployerByUid.data) {
         localStorage.setItem("uid", empSignIn.data.uid);
         localStorage.setItem("accessToken", empSignIn.data.accessToken);
+        localStorage.setItem("userType", "employer");
         navigation("/app");
         message.success("Employer login success");
       }
@@ -54,7 +55,7 @@ const Login = () => {
         message.error("Failed to login as employer");
       }
     },
-    [getEmployerByUid, navigation]
+    [getEmployerByUid, empSignIn, navigation]
   );
 
   return (
