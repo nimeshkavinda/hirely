@@ -7,7 +7,7 @@ import {
   updateEmployer,
 } from "./employer";
 import { signUp, signIn } from "./candidate";
-import { createJob, getJobs, getJobById, updateJob } from "./job";
+import { createJob, getJobs, getJobById, updateJob, deleteJob } from "./job";
 
 const rootReducer = combineReducers({
   empSignUp,
@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
   getJobs,
   getJobById,
   updateJob,
+  deleteJob,
 });
 
 export default rootReducer;

@@ -39,6 +39,9 @@ const types = {
     updateJob: {
       ...generateActionTypes("job.updateJob"),
     },
+    deleteJob: {
+      ...generateActionTypes("job.deleteJob"),
+    },
   },
 };
 

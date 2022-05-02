@@ -9,11 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import industries from "../../../data/industries.data";
 import jobTypes from "../../../data/jobTypes.data";
 import locations from "../../../data/locations.data";
+import { useNavigate } from "react-router-dom";
 
 const EditJob = () => {
   const urlParams = useParams();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const navigation = useNavigate();
 
   useEffect(() => {
     dispatch(ac.getJobById(urlParams.id));
@@ -42,12 +44,46 @@ const EditJob = () => {
 
   const onUpdateJob = (data) => {
     dispatch(ac.updateJob(urlParams.id, data));
-    message.success("Job has been updated successfully");
   };
+
+  const updateJob = useSelector(({ updateJob }) =>
+    updateJob.data ? updateJob.data : {}
+  );
 
   const updateJobFetching = useSelector(({ updateJob: { fetching } }) => {
     return fetching;
   });
+
+  useEffect(() => {
+    if (updateJob?.status === "success") {
+      message.success("Job has been updated successfully");
+    }
+    if (updateJob?.error) {
+      message.error("Failed to update job");
+    }
+  }, [updateJob]);
+
+  const onDeleteJob = () => {
+    dispatch(ac.deleteJob(urlParams.id));
+  };
+
+  const deleteJob = useSelector(({ deleteJob }) =>
+    deleteJob.data ? deleteJob.data : {}
+  );
+
+  const deleteJobFetching = useSelector(({ deleteJob: { fetching } }) => {
+    return fetching;
+  });
+
+  useEffect(() => {
+    if (deleteJob?.status === "success") {
+      message.success("Job has been deleted successfully");
+      // navigation("/app");
+    }
+    if (deleteJob?.error) {
+      message.error("Failed to delete job");
+    }
+  }, [deleteJob, navigation]);
 
   return (
     <>
@@ -55,7 +91,10 @@ const EditJob = () => {
         <Header />
       </div>
       <div className={classNames.heading}>Edit job</div>
-      <Spin size="large" spinning={getJobByIdFetching || updateJobFetching}>
+      <Spin
+        size="large"
+        spinning={getJobByIdFetching || updateJobFetching || deleteJobFetching}
+      >
         <div className={classNames.formWrapper}>
           <Form layout="vertical" form={form} onFinish={onUpdateJob}>
             <Form.Item
@@ -167,7 +206,12 @@ const EditJob = () => {
               >
                 Update job
               </Button>
-              <Button type="primary" danger>
+              <Button
+                type="primary"
+                danger
+                onClick={onDeleteJob}
+                loading={deleteJobFetching}
+              >
                 Delete job
               </Button>
             </Form.Item>
