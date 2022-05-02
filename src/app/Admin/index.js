@@ -7,9 +7,14 @@ import Dashboard from "./Dashboard/Dashboard";
 import Jobs from "./Jobs/Jobs";
 import Candidates from "./Candidates/Candidates";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("1");
+
+  const employerData = useSelector(({ getEmployerByUid }) =>
+    getEmployerByUid.data ? getEmployerByUid.data[0] : {}
+  );
 
   const showJobsTab = () => {
     setActiveTab("2");
@@ -24,12 +29,13 @@ const Admin = () => {
   };
 
   const { TabPane } = Tabs;
+
   return (
     <>
       <div className={classNames.wrapper}>
         <Header />
       </div>
-      <CompanyHeader />
+      <CompanyHeader employer={employerData} />
       <div className={classNames.wrapper}>
         <Tabs
           defaultActiveKey={activeTab}

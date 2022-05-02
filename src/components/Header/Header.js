@@ -39,6 +39,10 @@ const Header = () => {
     }
   }, [uid, userType, dispatch]);
 
+  const employerData = useSelector(({ getEmployerByUid }) =>
+    getEmployerByUid.data ? getEmployerByUid.data[0] : {}
+  );
+
   const globalLogOut = () => {
     const auth = getAuth();
     signOut(auth)
@@ -53,7 +57,7 @@ const Header = () => {
   };
 
   const UserOptions = () => {
-    if (userType === "employer") {
+    if (isLoggedIn && userType === "employer") {
       return (
         <div className={classNames.buttonWrapper}>
           <Dropdown
@@ -70,10 +74,7 @@ const Header = () => {
               <Avatar
                 className={classNames.avatar}
                 src={
-                  <Image
-                    preview={false}
-                    src="https://joeschmoe.io/api/v1/random"
-                  />
+                  <Image preview={false} src={`${employerData?.companyLogo}`} />
                 }
               />
             </Space>
@@ -81,7 +82,7 @@ const Header = () => {
         </div>
       );
     }
-    if (userType === "candidate") {
+    if (isLoggedIn && userType === "candidate") {
       return (
         <div className={classNames.buttonWrapper}>
           <Button

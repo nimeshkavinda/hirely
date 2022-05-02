@@ -1,8 +1,10 @@
 import classNames from "./Header.module.scss";
 import { Avatar, Image, Button } from "antd";
 import { BsPlus } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ employer }) => {
+  const navigation = useNavigate();
   return (
     <div className={classNames.wrapper}>
       <div className={classNames.headerWrapper}>
@@ -10,17 +12,16 @@ const Header = () => {
           <div>
             <Avatar
               className={classNames.logo}
-              src={
-                <Image
-                  preview={false}
-                  src="https://joeschmoe.io/api/v1/random"
-                />
-              }
+              src={<Image preview={false} src={`${employer?.companyLogo}`} />}
             />
-            <div>Apple Inc.</div>
+            <div>{employer?.companyName}</div>
           </div>
           <div>
-            <Button type="link" className={classNames.linkButton}>
+            <Button
+              type="link"
+              className={classNames.linkButton}
+              onClick={() => navigation("/job/create")}
+            >
               <BsPlus /> Post a job
             </Button>
             <Button type="primary">Edit Company Profile</Button>
