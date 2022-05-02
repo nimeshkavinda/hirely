@@ -36,7 +36,7 @@ const ViewJob = () => {
               width={90}
               height={90}
               preview={false}
-              src="https://wallpaperaccess.com/full/213588.jpg"
+              src={`${getJobById?.company?.companyLogo}`}
               className={classNames.companyLogo}
             />
             <div>{getJobById?.title}</div>
