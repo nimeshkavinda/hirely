@@ -8,6 +8,9 @@ const types = {
     empSignIn: {
       ...generateActionTypes("employer.signIn"),
     },
+    createEmpAcc: {
+      ...generateActionTypes("employer.createEmpAcc"),
+    },
   },
   candidate: {
     signUp: {

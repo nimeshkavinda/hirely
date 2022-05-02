@@ -1,37 +1,59 @@
 import classNames from "./CreateAccount.module.scss";
-import { Card, Form, Input, Button, Upload } from "antd";
-import { GrAdd } from "react-icons/gr";
+import { Card, Form, Input, Button, Upload, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ac from "../../../../redux/actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
 
 const CreateAccount = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const [imageUrl, setImageUrl] = useState();
+  const [empAccount, setEmpAccount] = useState();
 
-  const empSignUp = useSelector(({ signUp }) => signUp);
+  const handlePhotoChange = (data) => {
+    let file = data.file;
+    let reader = new FileReader();
+    reader.onload = (e) => {
+      file.base64 = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    setImageUrl(file);
+    setEmpAccount(file.base64);
+  };
 
-  const fetching = useSelector(({ empSignUp: { fetching } }) => {
-    return fetching;
-  });
-
-  const onSubmit = (data) => {
-    console.log("Sign up data: ", data);
+  const onFinish = (data) => {
+    setEmpAccount({ ...data, companyLogo: imageUrl.base64 });
     dispatch(ac.empSignUp(data.email, data.password));
   };
+
+  const empSignUp = useSelector(({ empSignUp }) => empSignUp);
+
+  const empSignUpFetching = useSelector(({ empSignUp: { fetching } }) => {
+    return fetching;
+  });
 
   useEffect(
     function () {
       if (empSignUp.data) {
-        console.log("Signup success data: ", empSignUp.data);
-        // navigation("/");
+        dispatch(
+          ac.createEmpAcc({
+            ...empAccount,
+            uid: empSignUp.data.uid,
+            jobs: {},
+            candidates: {},
+          })
+        );
+        message.success("Company account has been created. Please login ");
+        navigation("/admin-login");
       }
       if (empSignUp.error) {
-        console.log("fail");
+        message.error(empSignUp.error.code);
       }
     },
-    [empSignUp, dispatch, navigation]
+    [empSignUp, empAccount, dispatch, navigation]
   );
 
   return (
@@ -41,20 +63,38 @@ const CreateAccount = () => {
           <div>Create your company account</div>
         </div>
         <Card className={classNames.formCard}>
-          <Form layout="vertical">
+          <Form layout="vertical" form={form} onFinish={onFinish}>
             <Form.Item label="Company logo">
               <Upload
                 name="avatar"
                 listType="picture-card"
                 className="avatar-uploader"
-                showUploadList={false}
+                beforeUpload={() => false}
+                accept="image/png,image/jpeg"
+                onChange={handlePhotoChange}
+                maxCount={1}
+                // style={{ display: `${showUpload ? "block" : "none"}` }}
+                // disabled={showUpload ? false : true}
               >
-                <GrAdd />
+                <div>
+                  <PlusOutlined />
+                  <div style={{ marginTop: 8 }}>Upload</div>
+                </div>
               </Upload>
+              <span style={{ color: "#ee6969" }}>
+                {!imageUrl && "Please upload company logo"}
+              </span>
             </Form.Item>
             <Form.Item>
               <Form.Item
                 label="First name"
+                name="firstName"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your first name!",
+                  },
+                ]}
                 style={{
                   display: "inline-block",
                   float: "left",
@@ -66,6 +106,13 @@ const CreateAccount = () => {
               </Form.Item>
               <Form.Item
                 label="Last name"
+                name="lastName"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your last name!",
+                  },
+                ]}
                 style={{
                   display: "inline-block",
                   float: "right",
@@ -77,20 +124,46 @@ const CreateAccount = () => {
               </Form.Item>
             </Form.Item>
 
-            <Form.Item label="Company name">
-              <Input />
-            </Form.Item>
-
-            <Form.Item label="Email address">
+            <Form.Item
+              label="Company name"
+              name="companyName"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your Company name!",
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
 
             <Form.Item
-              label="Password"
-              name="password"
+              name="email"
+              label="E-mail address"
               rules={[
-                { required: true, message: "Please input your password!" },
+                {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+                {
+                  required: true,
+                  message: "Please input your E-mail!",
+                },
               ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              label="Password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+              hasFeedback
             >
               <Input.Password />
             </Form.Item>
@@ -100,6 +173,8 @@ const CreateAccount = () => {
                 type="primary"
                 htmlType="submit"
                 className={classNames.ctaButton}
+                disabled={!imageUrl ? true : false}
+                loading={empSignUpFetching}
               >
                 Create company account
               </Button>
