@@ -20,8 +20,6 @@ const JobCard = ({
     <div className={classNames.jobCard}>
       <div className={classNames.titleRow}>
         <Image
-          width={60}
-          height={60}
           preview={false}
           src={`${companyLogo}`}
           className={classNames.companyLogo}

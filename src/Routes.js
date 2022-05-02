@@ -14,6 +14,7 @@ import AdminLogin from "./app/Auth/Employer/Login/Login";
 import CreateAccount from "./app/Auth/Employer/CreateAccount/CreateAccount";
 import Candidate from "./app/Candidate";
 import CandidateProfile from "./app/Candidate/CandidateProfile/CandidateProfile";
+import JobApplicants from "./app/JobDetails/JobApplicants/JobApplicants";
 
 function AppRoutes() {
   return (
@@ -42,6 +43,14 @@ function AppRoutes() {
             element={
               <ProtectedRoute roles={["employer"]}>
                 <EditJob />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path=":id/candidates"
+            element={
+              <ProtectedRoute roles={["employer"]}>
+                <JobApplicants />
               </ProtectedRoute>
             }
           />

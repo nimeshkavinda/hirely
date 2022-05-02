@@ -12,6 +12,8 @@
 .companyLogo {
   border-radius: 50%;
   object-fit: cover;
+  width: 60px;
+  height: 60px;
 }
 
 .titleRow {
@@ -45,6 +47,12 @@
   align-items: center;
   margin: 0 8px 8px 0;
   text-transform: capitalize;
+  > span {
+    max-width: 33%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 
 .location {
