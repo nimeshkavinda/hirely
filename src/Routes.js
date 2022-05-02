@@ -1,5 +1,6 @@
 import App from "./App";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 import Jobs from "./app/Jobs";
 import Admin from "./app/Admin";
 import JobDetails from "./app/JobDetails";
@@ -27,14 +28,49 @@ function AppRoutes() {
           <Route path="register-company" element={<CreateAccount />} />
         </Route>
         <Route path="/job" element={<JobDetails />}>
-          <Route path="create" element={<CreateJob />} />
+          <Route
+            path="create"
+            element={
+              <ProtectedRoute roles={["employer"]}>
+                <CreateJob />
+              </ProtectedRoute>
+            }
+          />
           <Route path=":id" element={<ViewJob />} />
-          <Route path=":id/edit" element={<EditJob />} />
+          <Route
+            path=":id/edit"
+            element={
+              <ProtectedRoute roles={["employer"]}>
+                <EditJob />
+              </ProtectedRoute>
+            }
+          />
         </Route>
-        <Route path="/candidate" element={<Candidate />}>
-          <Route path=":uid" element={<CandidateProfile />} />
+        <Route
+          path="/candidate"
+          element={
+            <ProtectedRoute roles={["employer"]}>
+              <Candidate />
+            </ProtectedRoute>
+          }
+        >
+          <Route
+            path=":uid"
+            element={
+              <ProtectedRoute roles={["employer"]}>
+                <CandidateProfile />
+              </ProtectedRoute>
+            }
+          />
         </Route>
-        <Route path="app" element={<Admin />}></Route>
+        <Route
+          path="app"
+          element={
+            <ProtectedRoute roles={["employer"]}>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );
