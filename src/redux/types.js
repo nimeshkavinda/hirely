@@ -36,6 +36,9 @@ const types = {
     getJobById: {
       ...generateActionTypes("job.getJobById"),
     },
+    updateJob: {
+      ...generateActionTypes("job.updateJob"),
+    },
   },
 };
 

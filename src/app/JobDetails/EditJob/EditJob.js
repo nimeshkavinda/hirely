@@ -1,9 +1,9 @@
 import classNames from "./EditJob.module.scss";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
-import { Form, Input, Button, Select, Checkbox, Spin } from "antd";
+import { Form, Input, Button, Select, Checkbox, Spin, message } from "antd";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ac from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import industries from "../../../data/industries.data";
@@ -40,9 +40,14 @@ const EditJob = () => {
     });
   }, [getJobByIdFetching, getJobById, dispatch, form]);
 
-  const updateJob = (data) => {
-    console.log("Data", data);
+  const onUpdateJob = (data) => {
+    dispatch(ac.updateJob(urlParams.id, data));
+    message.success("Job has been updated successfully");
   };
+
+  const updateJobFetching = useSelector(({ updateJob: { fetching } }) => {
+    return fetching;
+  });
 
   return (
     <>
@@ -50,9 +55,9 @@ const EditJob = () => {
         <Header />
       </div>
       <div className={classNames.heading}>Edit job</div>
-      <Spin size="large" spinning={getJobByIdFetching}>
+      <Spin size="large" spinning={getJobByIdFetching || updateJobFetching}>
         <div className={classNames.formWrapper}>
-          <Form layout="vertical" form={form} onFinish={updateJob}>
+          <Form layout="vertical" form={form} onFinish={onUpdateJob}>
             <Form.Item
               label="Job title"
               name="title"
@@ -155,7 +160,11 @@ const EditJob = () => {
               <Checkbox>This is a remote job</Checkbox>
             </Form.Item>
             <Form.Item className={classNames.buttonWrapper}>
-              <Button type="primary" htmlType="submit">
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={updateJobFetching}
+              >
                 Update job
               </Button>
               <Button type="primary" danger>
