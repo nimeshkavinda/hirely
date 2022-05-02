@@ -13,15 +13,39 @@ import ac from "../../redux/actions";
 const Admin = () => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("1");
+  const [allJobsArr, setAllJobsArr] = useState([]);
+  const [companyJobs, setCompanyJobs] = useState([]);
 
   useEffect(() => {
     dispatch(ac.getJobs());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const getJobs = useSelector(({ getJobs }) =>
+    getJobs.data ? getJobs.data : {}
+  );
+
+  const getJobsFetching = useSelector(({ getJobs: { fetching } }) => {
+    return fetching;
+  });
+
   const employerData = useSelector(({ getEmployerByUid }) =>
     getEmployerByUid.data ? getEmployerByUid.data[0] : {}
   );
+
+  useEffect(() => {
+    let jobsArr = Object.keys(getJobs).map((key) => {
+      return getJobs[key];
+    });
+    setAllJobsArr(jobsArr);
+  }, [getJobsFetching, getJobs]);
+
+  useEffect(() => {
+    let empJobs = allJobsArr
+      .filter((jobs) => jobs.company.uid === employerData?.uid)
+      .map((jobs) => jobs);
+    setCompanyJobs(empJobs);
+  }, [allJobsArr, employerData]);
 
   const showJobsTab = () => {
     setActiveTab("2");
@@ -56,7 +80,7 @@ const Admin = () => {
             />
           </TabPane>
           <TabPane tab="Jobs" key="2">
-            <Jobs />
+            <Jobs jobs={companyJobs} />
           </TabPane>
           <TabPane tab="Candidates" key="3">
             <Candidates />
