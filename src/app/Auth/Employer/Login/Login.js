@@ -1,9 +1,38 @@
 import classNames from "./Login.module.scss";
-import { Card, Form, Input, Button } from "antd";
+import { Card, Form, Input, Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import ac from "../../../../redux/actions";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigation = useNavigate();
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+
+  const onFinish = (data) => {
+    dispatch(ac.empSignIn(data.email, data.password));
+  };
+
+  const empSignIn = useSelector(({ empSignIn }) => empSignIn);
+
+  const empSignInFetching = useSelector(({ empSignIn: { fetching } }) => {
+    return fetching;
+  });
+
+  useEffect(
+    function () {
+      if (empSignIn.data) {
+        message.success("Login success");
+        // navigation("/app");
+      }
+      if (empSignIn.error) {
+        message.error(empSignIn.error.code);
+      }
+    },
+    [empSignIn, dispatch, navigation]
+  );
+
   return (
     <div className={classNames.wrapper}>
       <div className={classNames.authWrapper}>
@@ -11,7 +40,7 @@ const Login = () => {
           <div>Login to your Hirely account</div>
         </div>
         <Card className={classNames.formCard}>
-          <Form layout="vertical">
+          <Form layout="vertical" form={form} onFinish={onFinish}>
             <Form.Item
               name="email"
               label="E-mail address"
@@ -44,6 +73,7 @@ const Login = () => {
                 type="primary"
                 htmlType="submit"
                 className={classNames.ctaButton}
+                loading={empSignInFetching}
               >
                 Login
               </Button>

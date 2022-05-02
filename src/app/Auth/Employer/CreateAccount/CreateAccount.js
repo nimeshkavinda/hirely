@@ -35,6 +35,12 @@ const CreateAccount = () => {
     return fetching;
   });
 
+  const empCreateAcc = useSelector(({ createEmpAcc }) => createEmpAcc);
+
+  const empCreateAccFetching = useSelector(({ createEmpAcc: { fetching } }) => {
+    return fetching;
+  });
+
   useEffect(
     function () {
       if (empSignUp.data) {
@@ -46,14 +52,27 @@ const CreateAccount = () => {
             candidates: {},
           })
         );
-        message.success("Company account has been created. Please login ");
-        navigation("/admin-login");
+        // message.success("Company account has been created. Please login ");
+        // navigation("/admin-login");
       }
       if (empSignUp.error) {
         message.error(empSignUp.error.code);
       }
     },
     [empSignUp, empAccount, dispatch, navigation]
+  );
+
+  useEffect(
+    function () {
+      if (empCreateAcc.data?.status === "success") {
+        message.success("Company account has been created. Please login ");
+        navigation("/admin-login");
+      }
+      if (empCreateAcc.error) {
+        message.error(empCreateAcc.error);
+      }
+    },
+    [empCreateAcc, navigation]
   );
 
   return (
@@ -174,7 +193,7 @@ const CreateAccount = () => {
                 htmlType="submit"
                 className={classNames.ctaButton}
                 disabled={!imageUrl ? true : false}
-                loading={empSignUpFetching}
+                loading={empSignUpFetching || empCreateAccFetching}
               >
                 Create company account
               </Button>
