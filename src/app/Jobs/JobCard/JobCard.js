@@ -1,7 +1,23 @@
 import classNames from "./JobCard.module.scss";
 import { Image, Button, Tag } from "antd";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
-const JobCard = () => {
+const JobCard = ({
+  id,
+  companyLogo,
+  created,
+  title,
+  companyName,
+  noOfApplicants,
+  jobType,
+  modality,
+  industry,
+  location,
+  salary,
+  description,
+}) => {
+  const navigation = useNavigate();
   return (
     <div className={classNames.jobCard}>
       <div className={classNames.firstRow}>
@@ -9,34 +25,31 @@ const JobCard = () => {
           width={60}
           height={60}
           preview={false}
-          src="https://wallpaperaccess.com/full/213588.jpg"
+          src={`${companyLogo}`}
           className={classNames.companyLogo}
         />
-        <span>13 April</span>
+        <div>
+          <div>{`{${created}}`}</div>
+          <div>{noOfApplicants} applicants</div>
+        </div>
       </div>
       <div className={classNames.titleRow}>
         <div>
-          <div>UX Designer</div>
-          <div>Apple Inc</div>
+          <div>{title}</div>
+          <div>{companyName}</div>
         </div>
-        <div>10 applicants</div>
       </div>
       <div className={classNames.tagRow}>
-        <Tag color="magenta">full-time</Tag>
-        <Tag color="red">in-office</Tag>
-        <Tag color="volcano">IT-services</Tag>
+        <Tag color="magenta">{jobType}</Tag>
+        <Tag color="red">{modality}</Tag>
+        <Tag color="volcano">{industry}</Tag>
       </div>
-      <div className={classNames.location}>Colombo, Sri Lanka</div>
-      <div className={classNames.description}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-      </div>
-      <div className={classNames.salary}>150,000 LKR - 250,000 LKR</div>
+      <div className={classNames.location}>{location}</div>
+      <div className={classNames.description}>{description}</div>
+      <div className={classNames.salary}>LKR {salary}</div>
       <div className={classNames.buttonWrapper}>
-        <Button type="primary">Apply Now</Button>
-        <Button>View Job</Button>
+        {/* <Button type="primary">Apply Now</Button> */}
+        <Button onClick={() => navigation(`/job/${id}`)}>View Job</Button>
       </div>
     </div>
   );

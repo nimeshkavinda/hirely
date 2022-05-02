@@ -1,11 +1,39 @@
 import classNames from "./Jobs.module.scss";
-import { Button, Input, Select, Checkbox, Slider } from "antd";
+import { Button, Input, Select, Checkbox, Slider, Spin } from "antd";
 import { RiSearchLine } from "react-icons/ri";
 import Footer from "../../components/Footer/Footer";
 import JobCard from "./JobCard/JobCard";
 import Header from "../../components/Header/Header";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ac from "../../redux/actions";
 
 const Jobs = () => {
+  const dispatch = useDispatch();
+  const [allJobs, setAllJobs] = useState([]);
+
+  useEffect(() => {
+    dispatch(ac.getJobs());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getJobs = useSelector(({ getJobs }) =>
+    getJobs.data ? getJobs.data : {}
+  );
+
+  const getJobsFetching = useSelector(({ getJobs: { fetching } }) => {
+    return fetching;
+  });
+
+  useEffect(() => {
+    let jobsArr = Object.keys(getJobs).map((key) => {
+      return getJobs[key];
+    });
+    if (!getJobsFetching) {
+      setAllJobs(jobsArr);
+    }
+  }, [getJobs, getJobsFetching]);
+
   return (
     <>
       <div className={classNames.wrapper}>
@@ -41,90 +69,103 @@ const Jobs = () => {
             Search
           </Button>
         </div>
-        <div className={classNames.body}>
-          <div className={classNames.bodyLeft}>
-            <div className={classNames.filterWrapper}>
-              <div className={classNames.filterHeading}>Filters</div>
-              <div>
-                <div>Job type</div>
-                <div className={classNames.checkRow}>
-                  <Checkbox>Full-time</Checkbox>
-                  <span>10</span>
+        <Spin size="large" spinning={getJobsFetching}>
+          <div className={classNames.body}>
+            <div className={classNames.bodyLeft}>
+              <div className={classNames.filterWrapper}>
+                <div className={classNames.filterHeading}>Filters</div>
+                <div>
+                  <div>Job type</div>
+                  <div className={classNames.checkRow}>
+                    <Checkbox>Full-time</Checkbox>
+                    <span>10</span>
+                  </div>
+                  <div className={classNames.checkRow}>
+                    <Checkbox>Part-time</Checkbox>
+                    <span>5</span>
+                  </div>
+                  <div className={classNames.checkRow}>
+                    <Checkbox>Contract</Checkbox>
+                    <span>14</span>
+                  </div>
+                  <div className={classNames.checkRow}>
+                    <Checkbox>Internship</Checkbox>
+                    <span>16</span>
+                  </div>
                 </div>
-                <div className={classNames.checkRow}>
-                  <Checkbox>Part-time</Checkbox>
-                  <span>5</span>
+                <div>
+                  <div>Modality</div>
+                  <div className={classNames.checkRow}>
+                    <Checkbox>In-office</Checkbox>
+                    <span>16</span>
+                  </div>
+                  <div className={classNames.checkRow}>
+                    <Checkbox>Remote</Checkbox>
+                    <span>16</span>
+                  </div>
                 </div>
-                <div className={classNames.checkRow}>
-                  <Checkbox>Contract</Checkbox>
-                  <span>14</span>
+                <div>
+                  <div>Country</div>
+                  <div className={classNames.checkRow}>
+                    <Checkbox>Sri Lanka</Checkbox>
+                    <span>116</span>
+                  </div>
+                  <div className={classNames.checkRow}>
+                    <Checkbox>Singapore</Checkbox>
+                    <span>16</span>
+                  </div>
                 </div>
-                <div className={classNames.checkRow}>
-                  <Checkbox>Internship</Checkbox>
-                  <span>16</span>
+                <div>
+                  <div>Salary</div>
+                  <Slider
+                    marks={{
+                      0: "0 LKR",
+                      100: {
+                        label: <span>100,000 LKR</span>,
+                      },
+                    }}
+                  />
+                  <Checkbox style={{ marginTop: 16 }}>
+                    Include if no salary specified
+                  </Checkbox>
                 </div>
               </div>
-              <div>
-                <div>Modality</div>
-                <div className={classNames.checkRow}>
-                  <Checkbox>In-office</Checkbox>
-                  <span>16</span>
+            </div>
+            <div className={classNames.bodyRight}>
+              <div className={classNames.bodyTopRow}>
+                <div>
+                  <span>Jobs</span>
+                  <span>{allJobs.length}</span>
                 </div>
-                <div className={classNames.checkRow}>
-                  <Checkbox>Remote</Checkbox>
-                  <span>16</span>
-                </div>
-              </div>
-              <div>
-                <div>Country</div>
-                <div className={classNames.checkRow}>
-                  <Checkbox>Sri Lanka</Checkbox>
-                  <span>116</span>
-                </div>
-                <div className={classNames.checkRow}>
-                  <Checkbox>Singapore</Checkbox>
-                  <span>16</span>
+                <div>
+                  <span>Sort by </span>
+                  <Select defaultValue="latest" bordered={false}>
+                    <Select.Option value="latest">Latest</Select.Option>
+                  </Select>
                 </div>
               </div>
-              <div>
-                <div>Salary</div>
-                <Slider
-                  marks={{
-                    0: "0 LKR",
-                    100: {
-                      label: <span>100,000 LKR</span>,
-                    },
-                  }}
-                />
-                <Checkbox style={{ marginTop: 16 }}>
-                  Include if no salary specified
-                </Checkbox>
+              <div className={classNames.jobCardWrapper}>
+                {allJobs.map((job) => (
+                  <JobCard
+                    key={job.id}
+                    id={job.id}
+                    title={job.title}
+                    noOfApplicants={job.candidates?.length}
+                    companyLogo={job.company?.companyLogo}
+                    companyName={job.company?.companyName}
+                    description={job.description}
+                    jobType={job.jobType}
+                    modality={job.isRemote === true ? "Remote" : "In-office"}
+                    salary={job.salary}
+                    industry={job.industry}
+                    location={job.location}
+                    created={job.created}
+                  />
+                ))}
               </div>
             </div>
           </div>
-          <div className={classNames.bodyRight}>
-            <div className={classNames.bodyTopRow}>
-              <div>
-                <span>Jobs</span>
-                <span>210</span>
-              </div>
-              <div>
-                <span>Sort by </span>
-                <Select defaultValue="latest" bordered={false}>
-                  <Select.Option value="latest">Latest</Select.Option>
-                </Select>
-              </div>
-            </div>
-            <div className={classNames.jobCardWrapper}>
-              <JobCard />
-              <JobCard />
-              <JobCard />
-              <JobCard />
-              <JobCard />
-              <JobCard />
-            </div>
-          </div>
-        </div>
+        </Spin>
       </div>
       <Footer />
     </>
