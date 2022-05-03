@@ -1,9 +1,25 @@
 import classNames from "./Login.module.scss";
 import { Card, Form, Input, Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import ac from "../../../../redux/actions";
 
 const Login = () => {
   const navigation = useNavigate();
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+
+  const onFinish = (data) => {
+    console.log("login data:", data);
+    // dispatch(ac.signIn(data.email, data.password));
+  };
+
+  const signIn = useSelector(({ signIn }) => signIn);
+
+  const signInFetching = useSelector(({ signIn: { fetching } }) => {
+    return fetching;
+  });
+
   return (
     <div className={classNames.wrapper}>
       <div className={classNames.authWrapper}>
@@ -38,6 +54,7 @@ const Login = () => {
                 type="primary"
                 htmlType="submit"
                 className={classNames.ctaButton}
+                loading={signInFetching}
               >
                 Login
               </Button>

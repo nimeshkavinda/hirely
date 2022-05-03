@@ -31,6 +31,9 @@ const types = {
     updateCandidate: {
       ...generateActionTypes("candidate.updateCandidate"),
     },
+    getCandidateByUid: {
+      ...generateActionTypes("candidate.getCandidateByUid"),
+    },
   },
   job: {
     createJob: {
