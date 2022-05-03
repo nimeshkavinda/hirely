@@ -57,8 +57,10 @@ const Register = () => {
   useEffect(
     function () {
       if (candidateCreateAcc.data?.status === "success") {
-        message.success("Account has been created. Please login ");
-        navigation("/login");
+        message.success(
+          "Account has been created. Please complete your profile"
+        );
+        navigation("/complete-profile");
       }
       if (candidateCreateAcc.error) {
         message.error(candidateCreateAcc.error);

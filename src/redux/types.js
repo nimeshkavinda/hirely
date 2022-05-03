@@ -28,6 +28,9 @@ const types = {
     createCandidateAcc: {
       ...generateActionTypes("candidate.createCandidateAcc"),
     },
+    updateCandidate: {
+      ...generateActionTypes("candidate.updateCandidate"),
+    },
   },
   job: {
     createJob: {

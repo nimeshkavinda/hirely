@@ -5,7 +5,12 @@ import {
   getEmployerByUid,
   updateEmployer,
 } from "./employer";
-import { signUp, signIn, createCandidateAcc } from "./candidate";
+import {
+  signUp,
+  signIn,
+  createCandidateAcc,
+  updateCandidate,
+} from "./candidate";
 import { createJob, getJobs, getJobById, updateJob, deleteJob } from "./job";
 
 const actions = {
@@ -17,6 +22,7 @@ const actions = {
   signUp,
   signIn,
   createCandidateAcc,
+  updateCandidate,
   createJob,
   getJobs,
   getJobById,
