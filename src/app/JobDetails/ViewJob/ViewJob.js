@@ -54,6 +54,23 @@ const ViewJob = () => {
     return fetching;
   });
 
+  const getEmployerByUid = useSelector(
+    ({ getEmployerByUid }) => getEmployerByUid
+  );
+
+  const getEmployerByUidFetching = useSelector(
+    ({ getEmployerByUid: { fetching } }) => {
+      return fetching;
+    }
+  );
+
+  useEffect(() => {
+    if (!getJobByIdFetching && getJobById) {
+      // console.log("job company id: ", getJobById.company.uid);
+      dispatch(ac.getEmployerByUid(getJobById.company?.uid));
+    }
+  }, [getJobById, getJobByIdFetching, dispatch]);
+
   const onApply = () => {
     dispatch(
       ac.updateJob(urlParams.id, {
@@ -61,7 +78,28 @@ const ViewJob = () => {
         candidates: [
           ...getJobById.candidates,
           {
-            uid: uid,
+            candidateUid: uid,
+          },
+        ],
+      })
+    );
+    // console.log("job id: ", urlParams.id);
+    // console.log("company uid: ", getJobById.company.uid);
+    // console.log("candidate uid: ", uid);
+    // console.log("emp data: ", getEmployerByUid.data[0]);
+    // let employerData = Object.keys(getEmployerByUid.data).map((key) => {
+    //   return getEmployerByUid.data[key];
+    // });
+    // console.log("emp arr: ", employerData[0]);
+    // console.log("job", getJobById);
+    dispatch(
+      ac.updateEmployer(getJobById.company.uid, {
+        ...getEmployerByUid.data[0],
+        candidates: [
+          ...getEmployerByUid.data[0].candidates,
+          {
+            candidateUid: uid,
+            jobId: urlParams.id,
           },
         ],
       })
@@ -71,12 +109,11 @@ const ViewJob = () => {
   useEffect(() => {
     if (updateJob.status === "success") {
       let isFound = updateJob.data.candidates.some((candidate) => {
-        if (candidate.uid === uid) {
+        if (candidate.candidateUid === uid) {
           return true;
         }
         return false;
       });
-      console.log(isFound);
       if (isFound) {
         setApplyStatus(true);
         message.success("Successfully applied");
@@ -94,7 +131,11 @@ const ViewJob = () => {
       {/* <Header /> */}
       <Spin
         size="large"
-        spinning={getJobByIdFetching || getCandidateByUidFetching}
+        spinning={
+          getJobByIdFetching ||
+          getCandidateByUidFetching ||
+          getEmployerByUidFetching
+        }
       >
         <div className={classNames.jobWrapper}>
           <div className={classNames.header}>
@@ -137,7 +178,11 @@ const ViewJob = () => {
               <Button
                 type="primary"
                 onClick={onApply}
-                loading={updateJobFetching || getCandidateByUidFetching}
+                loading={
+                  updateJobFetching ||
+                  getCandidateByUidFetching ||
+                  getEmployerByUidFetching
+                }
                 disabled={applyStatus}
               >
                 {applyStatus ? "Already applied" : "Apply for this job"}

@@ -44,6 +44,7 @@ const Register = () => {
             role: "",
             about: "",
             resume: "",
+            jobs: [],
           })
         );
       }

@@ -1,8 +1,8 @@
 import endpoints from "../config";
 
-export default async function updateJob(uid, data) {
+export default async function updateJob(id, data) {
   return await (
-    await fetch(`${endpoints.EMPLOYER}/${uid}`, {
+    await fetch(`${endpoints.EMPLOYER}/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
