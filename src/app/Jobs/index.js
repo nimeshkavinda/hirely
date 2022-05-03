@@ -14,6 +14,7 @@ const Jobs = () => {
   const dispatch = useDispatch();
   const [allJobs, setAllJobs] = useState([]);
   const [jobTypesCount, setJobsTypesCount] = useState([]);
+  const [modalityCount, setModalityCount] = useState([]);
 
   useEffect(() => {
     dispatch(ac.getJobs());
@@ -62,8 +63,38 @@ const Jobs = () => {
     });
   };
 
+  const getModalityCounts = () => {
+    let remote = allJobs
+      .filter((jobs) => jobs.isRemote === true)
+      .map((jobs) => jobs);
+
+    let office = allJobs
+      .filter((jobs) => jobs.isRemote === false)
+      .map((jobs) => jobs);
+
+    setModalityCount({
+      remote: { ...remote, value: "remote" },
+      inOffice: { ...office, value: "in-office" },
+    });
+  };
+
+  // const getLocationCounts = () => {
+  //   let locations = allJobs
+  //     .filter(
+  //       (jobs) =>
+  //         jobs.location ===
+  //         locations.forEach(function (location) {
+  //           console.log(location);
+  //         })
+  //     )
+  //     .map((jobs) => jobs);
+  //   console.log("locations", locations);
+  // };
+
   useEffect(() => {
     getJobTypeCounts();
+    getModalityCounts();
+    // getLocationCounts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allJobs]);
 
@@ -122,22 +153,24 @@ const Jobs = () => {
                 </div>
                 <div>
                   <div>Modality</div>
-                  <div className={classNames.checkRow}>
-                    <Checkbox>In-office</Checkbox>
-                    <span>16</span>
-                  </div>
-                  <div className={classNames.checkRow}>
-                    <Checkbox>Remote</Checkbox>
-                    <span>16</span>
+                  <div>
+                    {Object.keys(modalityCount).map((type, index) => (
+                      <div className={classNames.checkRow} key={index}>
+                        <Checkbox>{modalityCount[type].value}</Checkbox>
+                        <span>
+                          {Object.keys(modalityCount[type]).length - 1}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 <div>
                   <div>Location</div>
                   <div>
-                    {locations.slice(0, 10).map((location, index) => (
+                    {locations.slice(0, 6).map((location, index) => (
                       <div className={classNames.checkRow} key={index}>
                         <Checkbox>{location}</Checkbox>
-                        <span>10</span>
+                        <span>{Math.floor(Math.random() * 10)}</span>
                       </div>
                     ))}
                   </div>

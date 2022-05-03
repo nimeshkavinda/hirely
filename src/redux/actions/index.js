@@ -5,7 +5,7 @@ import {
   getEmployerByUid,
   updateEmployer,
 } from "./employer";
-import { signUp, signIn } from "./candidate";
+import { signUp, signIn, createCandidateAcc } from "./candidate";
 import { createJob, getJobs, getJobById, updateJob, deleteJob } from "./job";
 
 const actions = {
@@ -16,6 +16,7 @@ const actions = {
   updateEmployer,
   signUp,
   signIn,
+  createCandidateAcc,
   createJob,
   getJobs,
   getJobById,

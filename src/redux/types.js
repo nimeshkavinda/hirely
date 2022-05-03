@@ -25,6 +25,9 @@ const types = {
     signIn: {
       ...generateActionTypes("candidate.signIn"),
     },
+    createCandidateAcc: {
+      ...generateActionTypes("candidate.createCandidateAcc"),
+    },
   },
   job: {
     createJob: {
