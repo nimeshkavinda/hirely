@@ -37,11 +37,30 @@ const Header = () => {
     if (userType === "employer") {
       dispatch(ac.getEmployerByUid(uid));
     }
+    if (userType === "candidate") {
+      dispatch(ac.getCandidateByUid(uid));
+    }
   }, [uid, userType, dispatch]);
 
   const employerData = useSelector(({ getEmployerByUid }) =>
     getEmployerByUid.data ? getEmployerByUid.data[0] : {}
   );
+
+  // const getEmployerByUidFetching = useSelector(
+  //   ({ getEmployerByUid: { fetching } }) => {
+  //     return fetching;
+  //   }
+  // );
+
+  const candidateData = useSelector(({ getCandidateByUid }) =>
+    getCandidateByUid.data ? getCandidateByUid.data[0] : {}
+  );
+
+  // const getCandidateByUidFetching = useSelector(
+  //   ({ getCandidateByUid: { fetching } }) => {
+  //     return fetching;
+  //   }
+  // );
 
   const globalLogOut = () => {
     const auth = getAuth();
@@ -108,7 +127,7 @@ const Header = () => {
                 src={
                   <Image
                     preview={false}
-                    src="https://joeschmoe.io/api/v1/random"
+                    src={`${candidateData?.profilePhoto}`}
                   />
                 }
               />

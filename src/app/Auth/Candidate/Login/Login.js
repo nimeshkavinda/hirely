@@ -1,8 +1,9 @@
 import classNames from "./Login.module.scss";
-import { Card, Form, Input, Button } from "antd";
+import { Card, Form, Input, Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ac from "../../../../redux/actions";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigation = useNavigate();
@@ -11,7 +12,7 @@ const Login = () => {
 
   const onFinish = (data) => {
     console.log("login data:", data);
-    // dispatch(ac.signIn(data.email, data.password));
+    dispatch(ac.signIn(data.email, data.password));
   };
 
   const signIn = useSelector(({ signIn }) => signIn);
@@ -19,6 +20,44 @@ const Login = () => {
   const signInFetching = useSelector(({ signIn: { fetching } }) => {
     return fetching;
   });
+
+  const getCandidateByUid = useSelector(
+    ({ getCandidateByUid }) => getCandidateByUid
+  );
+
+  const getCandidateByUidFetching = useSelector(
+    ({ getCandidateByUid: { fetching } }) => {
+      return fetching;
+    }
+  );
+
+  useEffect(
+    function () {
+      if (signIn.data) {
+        dispatch(ac.getCandidateByUid(signIn.data.uid));
+      }
+      if (signIn.error) {
+        message.error(signIn.error.code);
+      }
+    },
+    [signIn, dispatch, navigation]
+  );
+
+  useEffect(
+    function () {
+      if (getCandidateByUid.data) {
+        localStorage.setItem("uid", signIn.data.uid);
+        localStorage.setItem("accessToken", signIn.data.accessToken);
+        localStorage.setItem("userType", "candidate");
+        navigation("/");
+        message.success("Candidate login success");
+      }
+      if (getCandidateByUid.error) {
+        message.error("Failed to login as candidate");
+      }
+    },
+    [getCandidateByUid, signIn, navigation]
+  );
 
   return (
     <div className={classNames.wrapper}>
@@ -28,12 +67,19 @@ const Login = () => {
           <div className={classNames.logo}>Hirely.</div>
         </div>
         <Card className={classNames.formCard}>
-          <Form layout="vertical">
+          <Form layout="vertical" form={form} onFinish={onFinish}>
             <Form.Item
-              label="Username"
-              name="username"
+              name="email"
+              label="E-mail address"
               rules={[
-                { required: true, message: "Please input your username!" },
+                {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+                {
+                  required: true,
+                  message: "Please input your E-mail!",
+                },
               ]}
             >
               <Input />
@@ -54,7 +100,7 @@ const Login = () => {
                 type="primary"
                 htmlType="submit"
                 className={classNames.ctaButton}
-                loading={signInFetching}
+                loading={signInFetching || getCandidateByUidFetching}
               >
                 Login
               </Button>

@@ -17,6 +17,9 @@ const types = {
     updateEmployer: {
       ...generateActionTypes("employer.updateEmployer"),
     },
+    deleteEmployer: {
+      ...generateActionTypes("employer.deleteEmployer"),
+    },
   },
   candidate: {
     signUp: {
@@ -33,6 +36,9 @@ const types = {
     },
     getCandidateByUid: {
       ...generateActionTypes("candidate.getCandidateByUid"),
+    },
+    deleteCandidate: {
+      ...generateActionTypes("candidate.deleteCandidate"),
     },
   },
   job: {
