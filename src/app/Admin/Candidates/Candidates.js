@@ -1,75 +1,173 @@
 import classNames from "./Candidates.module.scss";
-import { Input, Select, Button, Table } from "antd";
+import { Input, Select, Button, Table, Form } from "antd";
 import { RiSearchLine } from "react-icons/ri";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Candidates = () => {
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
+const Candidates = ({ candidates }) => {
+  const navigation = useNavigate();
+  const [form] = Form.useForm();
+  const [companyCandidates, setCompanyCandidates] = useState(candidates);
+
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "First name",
+      dataIndex: "firstName",
+      key: "firstName",
+      render: (value) => {
+        return <span className={classNames.fieldValue}>{value}</span>;
+      },
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Last name",
+      dataIndex: "lastName",
+      key: "lastName",
+      render: (value) => {
+        return <span className={classNames.fieldValue}>{value}</span>;
+      },
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Primary role",
+      dataIndex: "role",
+      key: "role",
+      render: (value) => {
+        return <span className={classNames.fieldValue}>{value}</span>;
+      },
+    },
+    {
+      title: "Mobile number",
+      dataIndex: "mobile",
+      key: "mobile",
+      render: (value) => {
+        return <span className={classNames.fieldValue}>{value}</span>;
+      },
+    },
+    {
+      title: "Email address",
+      dataIndex: "email",
+      key: "email",
+      render: (value) => {
+        return <span className={classNames.fieldValue}>{value}</span>;
+      },
+    },
+    {
+      title: "Jobs",
+      dataIndex: "jobs",
+      key: "jobs",
+      render: (value) => {
+        return <Button type="link">{value.length} applications</Button>;
+      },
     },
   ];
+
+  const resetCandidates = () => {
+    form.resetFields();
+    setCompanyCandidates(candidates);
+  };
+
+  const searchCandidates = (data) => {
+    if (data.role === undefined) {
+      setCompanyCandidates(
+        companyCandidates &&
+          companyCandidates.filter((candidate) => {
+            return candidate.title
+              .toLowerCase()
+              .includes(data.keyword.toLowerCase());
+          })
+      );
+    } else {
+      setCompanyCandidates(
+        companyCandidates &&
+          companyCandidates.filter((candidate) => {
+            return (
+              candidate.firstName
+                .toLowerCase()
+                .includes(data.keyword.toLowerCase()) ||
+              (candidate.lastName
+                .toLowerCase()
+                .includes(data.keyword.toLowerCase()) &&
+                candidate.role
+                  .toLowerCase()
+                  .includes(data.jobType.toLowerCase()))
+            );
+          })
+      );
+    }
+  };
+
   return (
     <div className={classNames.wrapper}>
       <div className={classNames.search}>
-        <Input
-          placeholder="Job title or keyword"
-          prefix={
-            <RiSearchLine
-              size={18}
-              color="#A9A9A9"
-              style={{ marginRight: 8 }}
+        <Form layout="inline" form={form} onFinish={searchCandidates}>
+          <Form.Item
+            name="keyword"
+            rules={[
+              {
+                required: true,
+                message: "Please input a search keyword!",
+              },
+            ]}
+          >
+            <Input
+              placeholder="Candidate name or keyword"
+              prefix={
+                <RiSearchLine
+                  size={18}
+                  color="#A9A9A9"
+                  style={{ marginRight: 8 }}
+                />
+              }
+              size="large"
+              className={classNames.searchInput}
             />
-          }
-          size="large"
-          className={classNames.searchInput}
-        />
-        <Select
-          placeholder="Job"
-          size="large"
-          optionFilterProp="children"
-          filterOption={(input, option) =>
-            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-          className={classNames.searchSelect}
-        >
-          <Select.Option value="se">Software Engineer</Select.Option>
-        </Select>
-        <Button type="primary" className={classNames.searchButton}>
-          Search
-        </Button>
+          </Form.Item>
+          <Form.Item name="role">
+            <Select
+              placeholder="Primary role"
+              size="large"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              className={classNames.searchSelect}
+              // style={{ width: "28vw" }}
+            >
+              {companyCandidates.map((candidate) => (
+                <Select.Option key={candidate.uid} value={candidate.role}>
+                  {candidate.roleƒ}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className={classNames.searchButton}
+            onClick={searchCandidates}
+            style={{ marginRight: 10 }}
+          >
+            Search
+          </Button>
+          <Button className={classNames.searchButton} onClick={resetCandidates}>
+            Reset
+          </Button>
+        </Form>
       </div>
-      <div className={classNames.resultCount}>350 Candidates found</div>
+      <div className={classNames.resultCount}>
+        {companyCandidates.length} Candidates found
+      </div>
       <div className={classNames.tableWrapper}>
         <Table
-          dataSource={dataSource}
+          dataSource={companyCandidates}
           columns={columns}
           pagination={{ position: ["none", "bottomCenter"] }}
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: (event) => {
+                navigation(`/candidate/${record.uid}`);
+              },
+            };
+          }}
         />
       </div>
     </div>

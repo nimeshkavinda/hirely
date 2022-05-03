@@ -8,8 +8,11 @@
   flex-basis: 100%;
   flex: 1 30%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
+  > div:first-child {
+    margin-right: 35px;
+  }
 }
 
 .avatar {

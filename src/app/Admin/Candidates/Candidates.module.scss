@@ -8,18 +8,19 @@
   justify-content: space-between;
   align-items: center;
   margin: 15px 0;
+  width: 100%;
 }
 
 .searchInput {
-  width: 55%;
+  width: 42vw;
 }
 
 .searchSelect {
-  width: 28%;
+  width: 20vw !important;
 }
 
 .searchButton {
-  width: 15%;
+  width: 12vw;
   height: 40px;
 }
 
@@ -35,4 +36,8 @@
 
 .tableWrapper {
   margin: 15px 0 0 0;
+}
+
+.fieldValue {
+  text-transform: capitalize;
 }
