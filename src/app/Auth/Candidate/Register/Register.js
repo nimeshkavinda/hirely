@@ -60,13 +60,17 @@ const Register = () => {
         message.success(
           "Account has been created. Please complete your profile"
         );
-        navigation("/complete-profile");
+        navigation("/complete-profile", {
+          state: {
+            uid: signUp.data.uid,
+          },
+        });
       }
       if (candidateCreateAcc.error) {
         message.error(candidateCreateAcc.error);
       }
     },
-    [candidateCreateAcc, navigation]
+    [candidateCreateAcc, signUp.data, navigation]
   );
 
   return (

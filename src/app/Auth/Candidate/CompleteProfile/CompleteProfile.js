@@ -1,37 +1,34 @@
 import classNames from "./CompleteProfile.module.scss";
 import { Card, Form, Input, Button, Upload, message } from "antd";
 import { AiOutlineUpload } from "react-icons/ai";
-import { GrAdd } from "react-icons/gr";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ac from "../../../../redux/actions";
+import { PlusOutlined } from "@ant-design/icons";
 
 const CompleteProfile = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch();
+  const { state } = useLocation();
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState();
-  const [candidateAcc, setCandidateAcc] = useState();
+  // const [candidateAcc, setCandidateAcc] = useState();
 
-  const handlePhotoChange = (data) => {
-    let file = data.file;
-    let reader = new FileReader();
-    reader.onload = (e) => {
-      file.base64 = e.target.result;
-    };
-    reader.readAsDataURL(file);
-    setImageUrl(file);
-    setCandidateAcc(file.base64);
+  const getBase64 = (file) => {
+    return new Promise(function (resolve) {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        resolve(reader.result);
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
-  const signUp = useSelector(({ signUp }) => signUp);
-
-  const onFinish = (data) => {
-    console.log("data: ", data);
-    console.log("candidate acc", candidateAcc);
-    // setCandidateAcc({ ...data, profilePhoto: imageUrl.base64, resume: "" });
-    // dispatch(ac.updateCandidate(signUp.data.uid, { data }));
+  const handlePhotoChange = async (data) => {
+    let img = await getBase64(data.file);
+    setImageUrl(img);
+    dispatch(ac.updateCandidate(state.uid, { profilePhoto: img }));
   };
 
   const updateCandidate = useSelector(({ updateCandidate }) => updateCandidate);
@@ -41,6 +38,21 @@ const CompleteProfile = () => {
       return fetching;
     }
   );
+
+  const onFinish = (data) => {
+    dispatch(ac.updateCandidate(state.uid, data));
+    if (
+      !updateCandidateFetching &&
+      updateCandidate.data.role !== "" &&
+      updateCandidate.data.about !== ""
+    ) {
+      message.success("Profile has been completed. Please login");
+      navigation("/login");
+    }
+    if (updateCandidate.error) {
+      message.error("Failed to complete profile");
+    }
+  };
 
   // useEffect(
   //   function () {
@@ -69,11 +81,19 @@ const CompleteProfile = () => {
                 name="avatar"
                 listType="picture-card"
                 className="avatar-uploader"
-                showUploadList={false}
+                beforeUpload={() => false}
+                accept="image/png,image/jpeg"
                 onChange={handlePhotoChange}
+                maxCount={1}
               >
-                <GrAdd />
+                <div>
+                  <PlusOutlined />
+                  <div style={{ marginTop: 8 }}>Upload</div>
+                </div>
               </Upload>
+              <span style={{ color: "#ee6969" }}>
+                {!imageUrl && "Please upload profile photo"}
+              </span>
             </Form.Item>
 
             <Form.Item
