@@ -14,10 +14,13 @@ const Admin = () => {
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("1");
   const [allJobsArr, setAllJobsArr] = useState([]);
+  const [allCandidatesArr, setAllCandidatesArr] = useState([]);
   const [companyJobs, setCompanyJobs] = useState([]);
+  const [companyCandidates, setCompanyCandidates] = useState([]);
 
   useEffect(() => {
     dispatch(ac.getJobs());
+    dispatch(ac.getCandidates());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -29,6 +32,16 @@ const Admin = () => {
     return fetching;
   });
 
+  const getCandidates = useSelector(({ getCandidates }) =>
+    getCandidates.data ? getCandidates.data : {}
+  );
+
+  const getCandidatesFetching = useSelector(
+    ({ getCandidates: { fetching } }) => {
+      return fetching;
+    }
+  );
+
   const employerData = useSelector(({ getEmployerByUid }) =>
     getEmployerByUid.data ? getEmployerByUid.data[0] : {}
   );
@@ -37,15 +50,32 @@ const Admin = () => {
     let jobsArr = Object.keys(getJobs).map((key) => {
       return getJobs[key];
     });
+    let candidatesArr = Object.keys(getCandidates).map((key) => {
+      return getCandidates[key];
+    });
+
     setAllJobsArr(jobsArr);
-  }, [getJobsFetching, getJobs]);
+    setAllCandidatesArr(candidatesArr);
+  }, [getJobsFetching, getJobs, getCandidates]);
 
   useEffect(() => {
     let empJobs = allJobsArr
       .filter((jobs) => jobs.company.uid === employerData?.uid)
       .map((jobs) => jobs);
     setCompanyJobs(empJobs);
-  }, [allJobsArr, employerData]);
+
+    let empApplicants = allCandidatesArr
+      .filter((candidates) =>
+        candidates.jobs.some((job) => {
+          if (job.employerUid === employerData?.uid) {
+            return job;
+          }
+          return null;
+        })
+      )
+      .map((candidates) => candidates);
+    setCompanyCandidates(empApplicants);
+  }, [allJobsArr, employerData, allCandidatesArr]);
 
   const showJobsTab = () => {
     setActiveTab("2");
@@ -67,7 +97,7 @@ const Admin = () => {
         <Header />
       </div>
       <CompanyHeader employer={employerData} />
-      <Spin size="large" spinning={getJobsFetching}>
+      <Spin size="large" spinning={getJobsFetching || getCandidatesFetching}>
         <div className={classNames.wrapper}>
           <Tabs
             defaultActiveKey={activeTab}
@@ -77,6 +107,7 @@ const Admin = () => {
             <TabPane tab="Dashboard" key="1">
               <Dashboard
                 jobs={companyJobs}
+                candidates={companyCandidates}
                 showJobs={showJobsTab}
                 showCandidates={showCandidatesTab}
               />
@@ -85,7 +116,7 @@ const Admin = () => {
               <Jobs jobs={companyJobs} />
             </TabPane>
             <TabPane tab="Candidates" key="3">
-              <Candidates />
+              <Candidates candidates={companyCandidates} />
             </TabPane>
           </Tabs>
         </div>

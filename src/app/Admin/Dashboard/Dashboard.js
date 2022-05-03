@@ -3,7 +3,7 @@ import { Button } from "antd";
 import JobCard from "./JobCard/JobCard";
 import CandidateCard from "./CandidateCard/CandidateCard";
 
-const Dashboard = ({ jobs, showJobs, showCandidates }) => {
+const Dashboard = ({ jobs, candidates, showJobs, showCandidates }) => {
   const getPopularJobs = (jobs) => {
     return jobs.sort((a, b) => b.candidates.length - a.candidates.length);
   };
@@ -17,7 +17,7 @@ const Dashboard = ({ jobs, showJobs, showCandidates }) => {
         </div>
         <div className={classNames.statItem}>
           <div>Candidates applied</div>
-          <div>250</div>
+          <div>{candidates.length}</div>
         </div>
       </div>
       <div className={classNames.topicWrapper}>
@@ -59,12 +59,17 @@ const Dashboard = ({ jobs, showJobs, showCandidates }) => {
             </div>
           </div>
           <div className={classNames.candidateCardWrapper}>
-            <CandidateCard />
-            <CandidateCard />
-            <CandidateCard />
-            <CandidateCard />
-            <CandidateCard />
-            <CandidateCard />
+            {candidates.slice(0, 6).map((candidate) => (
+              <CandidateCard
+                key={candidate.uid}
+                uid={candidate.uid}
+                name={`${candidate.firstName} ${candidate.lastName}`}
+                role={candidate.role}
+                profilePhoto={candidate.profilePhoto}
+                updated={candidate.updated}
+                jobs={candidate.jobs}
+              />
+            ))}
           </div>
         </div>
         <div className={classNames.topic}>

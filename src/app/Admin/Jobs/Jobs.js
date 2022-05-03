@@ -3,9 +3,11 @@ import { Input, Select, Button, Table, Form } from "antd";
 import { RiSearchLine } from "react-icons/ri";
 import { useState } from "react";
 import jobTypes from "../../../data/jobTypes.data";
+import { useNavigate } from "react-router-dom";
 
 const Jobs = ({ jobs }) => {
   const [form] = Form.useForm();
+  const navigation = useNavigate();
   const [companyJobs, setCompanyJobs] = useState(jobs);
 
   const columns = [
@@ -167,6 +169,13 @@ const Jobs = ({ jobs }) => {
           dataSource={companyJobs}
           columns={columns}
           pagination={{ position: ["none", "bottomCenter"] }}
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: (event) => {
+                navigation(`/job/${record.id}/candidates`);
+              },
+            };
+          }}
         />
       </div>
     </div>
