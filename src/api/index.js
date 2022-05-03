@@ -10,6 +10,7 @@ import {
   updateCandidate,
   getCandidateByUid,
   deleteCandidate,
+  getCandidates,
 } from "./candidates";
 
 const api = {
@@ -20,6 +21,7 @@ const api = {
     updateCandidate,
     getCandidateByUid,
     deleteCandidate,
+    getCandidates,
   },
 };
 

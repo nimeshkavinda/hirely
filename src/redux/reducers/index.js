@@ -14,6 +14,7 @@ import {
   updateCandidate,
   getCandidateByUid,
   deleteCandidate,
+  getCandidates,
 } from "./candidate";
 import { createJob, getJobs, getJobById, updateJob, deleteJob } from "./job";
 
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   updateCandidate,
   getCandidateByUid,
   deleteCandidate,
+  getCandidates,
   createJob,
   getJobs,
   getJobById,

@@ -14,23 +14,25 @@ const JobHeader = ({ job }) => {
           <div>
             <Avatar
               className={classNames.logo}
-              src={<Image preview={false} src={`${job.company.companyLogo}`} />}
+              src={
+                <Image preview={false} src={`${job?.company?.companyLogo}`} />
+              }
             />
-            <div>{job.title}</div>
+            <div>{job?.title}</div>
             <div className={classNames.details}>
               <div>
                 <FaBriefcase size={16} color="#808080" />
-                <span>{job.jobType}</span>
+                <span>{job?.jobType}</span>
               </div>
               <BsDot size={16} color="#808080" />
               <div>
                 <HiOfficeBuilding size={16} color="#808080" />
-                <span>{job.industry}</span>
+                <span>{job?.industry}</span>
               </div>
               <BsDot size={16} color="#808080" />
               <div>
                 <FaGlobeAmericas size={16} color="#808080" />
-                <span>{job.location}</span>
+                <span>{job?.location}</span>
               </div>
             </div>
           </div>

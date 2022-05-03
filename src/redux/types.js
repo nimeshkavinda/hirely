@@ -40,6 +40,9 @@ const types = {
     deleteCandidate: {
       ...generateActionTypes("candidate.deleteCandidate"),
     },
+    getCandidates: {
+      ...generateActionTypes("candidate.getCandidates"),
+    },
   },
   job: {
     createJob: {

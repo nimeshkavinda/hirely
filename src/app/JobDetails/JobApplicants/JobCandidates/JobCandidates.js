@@ -1,7 +1,14 @@
 import { Table } from "antd";
 import classNames from "./JobCandidates.module.scss";
+import { useEffect } from "react";
 
-const JobCandidates = () => {
+const JobCandidates = ({ job }) => {
+  useEffect(() => {
+    console.log("job", job);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  console.log("job", job);
+
   const columns = [
     {
       title: "First name",
@@ -49,7 +56,7 @@ const JobCandidates = () => {
       <div className={classNames.resultCount}>350 applicants</div>
       <div className={classNames.tableWrapper}>
         <Table
-          // dataSource={dataSource}
+          // dataSource={job?.candidates}
           columns={columns}
           pagination={{ position: ["none", "bottomCenter"] }}
           className={classNames.table}

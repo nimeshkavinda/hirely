@@ -12,6 +12,7 @@ import {
   createCandidateAcc,
   updateCandidate,
   getCandidateByUid,
+  getCandidates,
 } from "./candidate";
 import { createJob, getJobs, getJobById, updateJob, deleteJob } from "./job";
 
@@ -27,6 +28,7 @@ const actions = {
   createCandidateAcc,
   updateCandidate,
   getCandidateByUid,
+  getCandidates,
   createJob,
   getJobs,
   getJobById,

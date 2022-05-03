@@ -34,7 +34,7 @@ const JobApplicants = () => {
       <Spin size="large" spinning={getJobByIdFetching}>
         <JobHeader job={getJobById} />
         <div className={classNames.wrapper}>
-          <JobCandidates />
+          <JobCandidates job={getJobById} />
         </div>
       </Spin>
       <Footer />
