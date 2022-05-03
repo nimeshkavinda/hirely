@@ -1,5 +1,10 @@
 import { getJobs, getJobById, deleteJob, createJob, updateJob } from "./jobs";
-import { createEmpAcc, getEmployerByUid, updateEmployer } from "./employer";
+import {
+  createEmpAcc,
+  getEmployerByUid,
+  updateEmployer,
+  deleteEmployer,
+} from "./employer";
 import {
   createCandidateAcc,
   updateCandidate,
@@ -9,7 +14,7 @@ import {
 
 const api = {
   job: { getJobs, getJobById, deleteJob, createJob, updateJob },
-  employer: { createEmpAcc, getEmployerByUid, updateEmployer },
+  employer: { createEmpAcc, getEmployerByUid, updateEmployer, deleteEmployer },
   candidate: {
     createCandidateAcc,
     updateCandidate,

@@ -4,6 +4,7 @@ import {
   createEmpAcc,
   getEmployerByUid,
   updateEmployer,
+  deleteEmployer,
 } from "./employer";
 import {
   signUp,
@@ -20,6 +21,7 @@ const actions = {
   createEmpAcc,
   getEmployerByUid,
   updateEmployer,
+  deleteEmployer,
   signUp,
   signIn,
   createCandidateAcc,

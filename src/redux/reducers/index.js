@@ -5,6 +5,7 @@ import {
   createEmpAcc,
   getEmployerByUid,
   updateEmployer,
+  deleteEmployer,
 } from "./employer";
 import {
   signUp,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   createEmpAcc,
   getEmployerByUid,
   updateEmployer,
+  deleteEmployer,
   signUp,
   signIn,
   createCandidateAcc,
