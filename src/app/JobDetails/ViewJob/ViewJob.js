@@ -36,9 +36,9 @@ const ViewJob = () => {
     return fetching;
   });
 
-  // const getCandidateByUid = useSelector(
-  //   ({ getCandidateByUid }) => getCandidateByUid
-  // );
+  const getCandidateByUid = useSelector(
+    ({ getCandidateByUid }) => getCandidateByUid
+  );
 
   const getCandidateByUidFetching = useSelector(
     ({ getCandidateByUid: { fetching } }) => {
@@ -72,6 +72,16 @@ const ViewJob = () => {
   }, [getJobById, getJobByIdFetching, dispatch]);
 
   const onApply = () => {
+    // console.log("job id: ", urlParams.id);
+    // console.log("company uid: ", getJobById.company.uid);
+    // console.log("candidate uid: ", uid);
+    // console.log("emp data: ", getEmployerByUid.data[0]);
+    // let employerData = Object.keys(getEmployerByUid.data).map((key) => {
+    //   return getEmployerByUid.data[key];
+    // });
+    // console.log("emp arr: ", employerData[0]);
+    // console.log("job", getJobById);
+
     dispatch(
       ac.updateJob(urlParams.id, {
         ...getJobById,
@@ -83,15 +93,7 @@ const ViewJob = () => {
         ],
       })
     );
-    // console.log("job id: ", urlParams.id);
-    // console.log("company uid: ", getJobById.company.uid);
-    // console.log("candidate uid: ", uid);
-    // console.log("emp data: ", getEmployerByUid.data[0]);
-    // let employerData = Object.keys(getEmployerByUid.data).map((key) => {
-    //   return getEmployerByUid.data[key];
-    // });
-    // console.log("emp arr: ", employerData[0]);
-    // console.log("job", getJobById);
+
     dispatch(
       ac.updateEmployer(getJobById.company.uid, {
         ...getEmployerByUid.data[0],
@@ -99,6 +101,19 @@ const ViewJob = () => {
           ...getEmployerByUid.data[0].candidates,
           {
             candidateUid: uid,
+            jobId: urlParams.id,
+          },
+        ],
+      })
+    );
+
+    dispatch(
+      ac.updateCandidate(uid, {
+        ...getCandidateByUid.data.data,
+        jobs: [
+          ...getCandidateByUid.data.data.jobs,
+          {
+            employerUid: getJobById.company.uid,
             jobId: urlParams.id,
           },
         ],
