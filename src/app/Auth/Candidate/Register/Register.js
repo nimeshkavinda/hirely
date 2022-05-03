@@ -1,9 +1,72 @@
 import classNames from "./Register.module.scss";
-import { Card, Form, Input, Button, Select } from "antd";
+import { Card, Form, Input, Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import ac from "../../../../redux/actions";
 
 const Register = () => {
   const navigation = useNavigate();
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const [candidateAcc, setCandidateAcc] = useState();
+
+  const onFinish = (data) => {
+    console.log("acc data: ", data);
+    setCandidateAcc(data);
+    dispatch(ac.signUp(data.email, data.password));
+  };
+
+  const signUp = useSelector(({ signUp }) => signUp);
+
+  const signUpFetching = useSelector(({ signUp: { fetching } }) => {
+    return fetching;
+  });
+
+  const candidateCreateAcc = useSelector(
+    ({ createCandidateAcc }) => createCandidateAcc
+  );
+
+  const candidateCreateAccFetching = useSelector(
+    ({ createCandidateAcc: { fetching } }) => {
+      return fetching;
+    }
+  );
+
+  useEffect(
+    function () {
+      if (signUp.data) {
+        dispatch(
+          ac.createCandidateAcc({
+            ...candidateAcc,
+            uid: signUp.data.uid,
+            profilePhoto: "",
+            role: "",
+            about: "",
+            resume: "",
+          })
+        );
+      }
+      if (signUp.error) {
+        message.error(signUp.error.code);
+      }
+    },
+    [signUp, candidateAcc, dispatch]
+  );
+
+  useEffect(
+    function () {
+      if (candidateCreateAcc.data?.status === "success") {
+        message.success("Account has been created. Please login ");
+        navigation("/login");
+      }
+      if (candidateCreateAcc.error) {
+        message.error(candidateCreateAcc.error);
+      }
+    },
+    [candidateCreateAcc, navigation]
+  );
+
   return (
     <div className={classNames.wrapper}>
       <div className={classNames.authWrapper}>
@@ -12,10 +75,17 @@ const Register = () => {
           <div className={classNames.logo}>Hirely.</div>
         </div>
         <Card className={classNames.formCard}>
-          <Form layout="vertical">
+          <Form layout="vertical" form={form} onFinish={onFinish}>
             <Form.Item>
               <Form.Item
                 label="First name"
+                name="firstName"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your first name!",
+                  },
+                ]}
                 style={{
                   display: "inline-block",
                   float: "left",
@@ -27,6 +97,13 @@ const Register = () => {
               </Form.Item>
               <Form.Item
                 label="Last name"
+                name="lastName"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your last name!",
+                  },
+                ]}
                 style={{
                   display: "inline-block",
                   float: "right",
@@ -38,20 +115,53 @@ const Register = () => {
               </Form.Item>
             </Form.Item>
 
-            <Form.Item label="Email address">
+            <Form.Item
+              name="email"
+              label="E-mail address"
+              rules={[
+                {
+                  type: "email",
+                  message: "The input is not valid E-mail!",
+                },
+                {
+                  required: true,
+                  message: "Please input your E-mail!",
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
 
-            <Form.Item label="Mobile number">
-              <Input.Group compact>
+            <Form.Item
+              label="Mobile number"
+              name="mobile"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your mobile number!",
+                },
+              ]}
+            >
+              {/* <Input.Group compact>
                 <Select defaultValue="+94" style={{ width: "20%" }}>
                   <Select.Option value="+94">+94</Select.Option>
                 </Select>
                 <Input style={{ width: "80%" }} />
-              </Input.Group>
+              </Input.Group> */}
+              <Input type="number" />
             </Form.Item>
 
-            <Form.Item label="Password">
+            <Form.Item
+              name="password"
+              label="Password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+              hasFeedback
+            >
               <Input.Password />
             </Form.Item>
 
@@ -60,6 +170,7 @@ const Register = () => {
                 type="primary"
                 htmlType="submit"
                 className={classNames.ctaButton}
+                loading={signUpFetching || candidateCreateAccFetching}
               >
                 Create account
               </Button>
