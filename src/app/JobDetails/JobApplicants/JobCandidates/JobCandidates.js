@@ -1,14 +1,9 @@
 import { Table } from "antd";
 import classNames from "./JobCandidates.module.scss";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const JobCandidates = ({ job }) => {
-  useEffect(() => {
-    console.log("job", job);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  console.log("job", job);
-
+const JobCandidates = ({ job, candidates }) => {
+  const navigation = useNavigate();
   const columns = [
     {
       title: "First name",
@@ -27,7 +22,7 @@ const JobCandidates = ({ job }) => {
       },
     },
     {
-      title: "Role",
+      title: "Primary role",
       dataIndex: "role",
       key: "role",
       render: (value) => {
@@ -53,17 +48,19 @@ const JobCandidates = ({ job }) => {
   ];
   return (
     <div className={classNames.wrapper}>
-      <div className={classNames.resultCount}>350 applicants</div>
+      <div className={classNames.resultCount}>
+        {candidates.length} applicants
+      </div>
       <div className={classNames.tableWrapper}>
         <Table
-          // dataSource={job?.candidates}
+          dataSource={candidates}
           columns={columns}
           pagination={{ position: ["none", "bottomCenter"] }}
           className={classNames.table}
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
-                console.log(event, record);
+                navigation(`/candidate/${record.uid}`);
               },
             };
           }}
