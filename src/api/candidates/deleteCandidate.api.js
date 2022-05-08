@@ -6,6 +6,7 @@ export default async function deleteCandidate(uid) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
       //   body: JSON.stringify(data),
     })
